@@ -1,0 +1,3427 @@
+/* ==========================================================================
+   アメリカ政治とキリスト教思想史 - デザインシステム & ビジュアルコンポーネント
+   Inspired by japan-fund-history (Glassmorphism, Noto Serif/Sans, Infographics)
+   ========================================================================== */
+
+:root {
+  --bg: #F2F3F6;
+  --glass: rgba(255, 255, 255, 0.78);
+  --card: rgba(255, 255, 255, 0.92);
+  --glass-strong: rgba(255, 255, 255, 0.96);
+  --glass-edge: rgba(255, 255, 255, 0.9);
+  --ink: #111418;
+  --muted: #4B5563;
+  --navy: #1B2A4A;
+  --navy-accent: #2A4374;
+  --on-navy: #FFFFFF;
+  --tint: rgba(27, 42, 74, 0.06);
+  --line: rgba(17, 20, 24, 0.10);
+  --soft: #E5E7EB;
+  --bar-gray: #C6CAD2;
+  --red-gop: #DC2626;
+  --blue-dem: #2563EB;
+  --shadow: 0 10px 30px rgba(17, 20, 24, 0.07);
+  --shadow-sm: 0 2px 8px rgba(17, 20, 24, 0.04);
+  --scrim: rgba(17, 20, 24, 0.5);
+  --serif: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans", sans-serif;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0D1016;
+    --glass: rgba(24, 28, 38, 0.78);
+    --card: rgba(28, 33, 44, 0.92);
+    --glass-strong: rgba(32, 38, 50, 0.96);
+    --glass-edge: rgba(255, 255, 255, 0.12);
+    --ink: #E9EBEF;
+    --muted: #A0A8B7;
+    --navy: #9DB0D8;
+    --navy-accent: #B5C5E6;
+    --on-navy: #0D1016;
+    --tint: rgba(157, 176, 216, 0.12);
+    --line: rgba(233, 235, 239, 0.12);
+    --soft: #202634;
+    --bar-gray: #4A5160;
+    --red-gop: #EF4444;
+    --blue-dem: #3B82F6;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --scrim: rgba(0, 0, 0, 0.75);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+/* PC時は中央最大640pxでスマホ風アプリの枠 */
+.shell {
+  max-width: 640px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  background: var(--bg);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ==========================================================================
+   Header (すりガラス固定トップバー)
+   ========================================================================== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease;
+}
+
+.topbar-in {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+  padding: 0 16px;
+}
+
+.topbar-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.topbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--muted);
+  transition: background 0.15s, color 0.15s;
+}
+
+.topbar-btn:hover {
+  background: var(--tint);
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Main Content Area
+   ========================================================================== */
+#app {
+  flex: 1;
+  padding: 16px 16px 88px; /* 下部タブバーの余白 */
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.section-head {
+  margin-bottom: 14px;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.section-lead {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin-top: 6px;
+  line-height: 1.6;
+}
+
+/* ヒーローバナー */
+.hero-card {
+  background: linear-gradient(135deg, var(--card) 0%, var(--glass-strong) 100%);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px 20px;
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, var(--tint) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 10px;
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.hero-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* カード共通 */
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--navy);
+}
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-family: var(--serif);
+  font-size: 16.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.card-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 8px;
+  background: var(--tint);
+  color: var(--navy);
+  white-space: nowrap;
+}
+
+.card-body {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* タグチップス */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.tag-chip {
+  font-size: 11px;
+  padding: 2px 7px;
+  background: var(--soft);
+  color: var(--muted);
+  border-radius: 6px;
+}
+
+/* タイムラインUI */
+.timeline {
+  position: relative;
+  padding-left: 20px;
+  margin-left: 6px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 3px;
+  width: 2px;
+  background: var(--line);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.timeline-node {
+  position: absolute;
+  top: 5px;
+  left: -24px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--navy);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 2px var(--line);
+  transition: transform 0.2s, background 0.2s;
+}
+
+/* 重要な時代のハイライト：政党色に応じた色分け（共和党＝赤、民主党＝青） */
+.timeline-item.featured .timeline-node {
+  background: var(--red-gop);
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.25);
+  transform: scale(1.15);
+}
+
+.timeline-item.featured .timeline-year {
+  color: var(--red-gop);
+}
+
+.timeline-card.featured {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.06) 0%, var(--card) 100%);
+  border: 1.5px solid rgba(220, 38, 38, 0.35);
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.07);
+}
+
+.timeline-card.featured:hover {
+  border-color: var(--red-gop);
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.14);
+}
+
+/* 民主党優位の重要転換点（青色ハイライト・青色枠・青色ドット） */
+.timeline-item.featured.featured-dem .timeline-node {
+  background: var(--blue-dem) !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.28) !important;
+}
+
+.timeline-item.featured.featured-dem .timeline-year {
+  color: var(--blue-dem) !important;
+}
+
+.timeline-card.featured.featured-dem {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.06) 0%, var(--card) 100%) !important;
+  border: 1.5px solid rgba(37, 99, 235, 0.38) !important;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.07) !important;
+}
+
+.timeline-card.featured.featured-dem:hover {
+  border-color: var(--blue-dem) !important;
+  box-shadow: 0 6px 18px rgba(37, 99, 235, 0.14) !important;
+}
+
+/* 共和党優位の重要転換点（赤色ハイライト・赤色枠・赤色ドット） */
+.timeline-item.featured.featured-gop .timeline-node {
+  background: var(--red-gop) !important;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.28) !important;
+}
+
+.timeline-item.featured.featured-gop .timeline-year {
+  color: var(--red-gop) !important;
+}
+
+.timeline-card.featured.featured-gop {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.06) 0%, var(--card) 100%) !important;
+  border: 1.5px solid rgba(220, 38, 38, 0.38) !important;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.07) !important;
+}
+
+.timeline-card.featured.featured-gop:hover {
+  border-color: var(--red-gop) !important;
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.14) !important;
+}
+
+.featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--red-gop);
+  padding: 1px 7px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+
+.featured-badge.dem {
+  background: var(--blue-dem) !important;
+  color: #fff !important;
+}
+
+.featured-badge.gop {
+  background: var(--red-gop) !important;
+  color: #fff !important;
+}
+
+.featured-badge.split {
+  background: #8B5CF6 !important;
+  color: #fff !important;
+}
+
+/* 支配的政党・主導政策バッジ */
+.dominant-badge-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.dominant-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.dominant-badge.gop {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--red-gop);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.dominant-badge.dem {
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--blue-dem);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+}
+
+.dominant-badge.split {
+  background: rgba(139, 92, 246, 0.12);
+  color: #8B5CF6;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.dominant-policy-text {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* ボトムシート内の詳細構造化セクション */
+.detail-section {
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.detail-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.detail-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.detail-num-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-size: 11px;
+  font-family: var(--sans);
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.detail-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+/* 対比テーブル風UI */
+.vs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.vs-box {
+  background: var(--soft);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+.vs-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.vs-text {
+  font-size: 12.5px;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   ビジュアルコンポーネント：投票比較バーチャート（Chart）
+   ========================================================================== */
+.chart-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 18px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.legend-dot.gop { background: var(--red-gop); }
+.legend-dot.dem { background: var(--blue-dem); }
+
+.bar-row {
+  margin-bottom: 12px;
+}
+
+.bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.bar-track {
+  height: 20px;
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  background: var(--soft);
+}
+
+.bar-segment {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  transition: width 0.6s ease;
+}
+
+.bar-segment.gop { background: var(--red-gop); }
+.bar-segment.dem { background: var(--blue-dem); }
+
+/* ==========================================================================
+   ビジュアルコンポーネント：アメリカ宗教勢力マップ（宗派バブル散布図）
+   ========================================================================== */
+.bubble-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+}
+
+.bubble-canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.1 / 1;
+  max-width: 520px;
+  margin: 10px auto 12px;
+  background: linear-gradient(135deg, var(--soft) 0%, var(--card) 100%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.bubble-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.bubble-node {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s;
+}
+
+.bubble-node:hover {
+  opacity: 0.95;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
+}
+
+.bubble-node:hover circle {
+  stroke-width: 3.5px;
+}
+
+.bubble-label {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  fill: #fff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+.bubble-pop-label {
+  font-family: var(--sans);
+  font-size: 9px;
+  font-weight: 600;
+  fill: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  text-anchor: middle;
+}
+
+/* 宗派カードアイコンバッジ */
+.denom-icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background: var(--tint);
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.denom-card.featured {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, var(--card) 100%);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.1);
+}
+
+.denom-card.featured:hover {
+  border-color: #D97706;
+}
+.tree-preview-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  margin-bottom: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.tree-preview-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--navy);
+}
+
+.tree-img-wrap {
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+  background: #fdfaf3;
+}
+
+.tree-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.tree-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 16px;
+  color: #fff;
+}
+
+.tree-overlay-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.tree-overlay-hint {
+  font-size: 12px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   ビジュアルコンポーネント：政治思想マトリックス（散布図）
+   ========================================================================== */
+.matrix-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 22px;
+}
+
+.matrix-canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-width: 480px;
+  margin: 10px auto 14px;
+  background: linear-gradient(135deg, var(--soft) 0%, var(--card) 100%);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.matrix-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.matrix-quad-label {
+  font-size: 10.5px;
+  font-weight: 700;
+  fill: var(--muted);
+  opacity: 0.7;
+}
+
+.matrix-axis-label {
+  font-size: 11.5px;
+  font-weight: 700;
+  fill: var(--navy);
+}
+
+.matrix-node {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.matrix-node:hover circle {
+  stroke: var(--ink);
+  stroke-width: 2.5px;
+}
+
+/* ==========================================================================
+   ビジュアルコンポーネント：南北推移インフォグラフィック
+   ========================================================================== */
+.shift-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 22px;
+}
+
+.shift-stage {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--soft);
+  margin-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.shift-stage:hover, .shift-stage:active {
+  background: var(--card);
+  border-color: var(--navy);
+  box-shadow: 0 4px 12px rgba(27, 42, 74, 0.08);
+  transform: translateY(-1px);
+}
+
+.shift-year {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.shift-bars {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.shift-badge-south {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--red-gop);
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.shift-badge-north {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--blue-dem);
+  border: 1px solid rgba(37, 99, 235, 0.25);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+/* 南部・北部それぞれの政党に応じた動的カラー（民主党＝青、共和党＝赤） */
+.shift-badge-south.dem, .shift-badge-north.dem {
+  background: rgba(37, 99, 235, 0.12) !important;
+  color: var(--blue-dem) !important;
+  border: 1px solid rgba(37, 99, 235, 0.3) !important;
+}
+
+.shift-badge-south.gop, .shift-badge-north.gop {
+  background: rgba(220, 38, 38, 0.12) !important;
+  color: var(--red-gop) !important;
+  border: 1px solid rgba(220, 38, 38, 0.3) !important;
+}
+
+/* 本文・サマリー内の重要政党テキストハイライト */
+.text-gop {
+  color: var(--red-gop);
+  font-weight: 800;
+}
+
+.text-dem {
+  color: var(--blue-dem);
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   人物カード（肖像アバター付き）
+   ========================================================================== */
+.person-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  flex-shrink: 0;
+  background: var(--tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 16px;
+}
+
+.person-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.person-card-in {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+/* ==========================================================================
+   Bottom Tabbar (すりガラス固定ナビゲーション)
+   ========================================================================== */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: var(--glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid var(--line);
+}
+
+.tabbar-in {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  height: 60px;
+  padding: 0 4px;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 500;
+  transition: color 0.15s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+.tab-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 1.9;
+  transition: transform 0.15s ease;
+}
+
+.tab-btn.active {
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.tab-btn.active svg {
+  transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Bottom Sheet Modal
+   ========================================================================== */
+.sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--scrim);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.sheet-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  max-width: 640px;
+  margin: 0 auto;
+  background: var(--glass-strong);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid var(--glass-edge);
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(105%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet.active {
+  transform: translateY(0);
+}
+
+.sheet-handle-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0 6px;
+  cursor: grab;
+}
+
+.sheet-handle {
+  width: 38px;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--bar-gray);
+}
+
+.sheet-head {
+  padding: 8px 20px 14px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sheet-title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.sheet-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tint);
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.sheet-content {
+  padding: 20px;
+  overflow-y: auto;
+  font-size: 14.5px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.sheet-content h3 {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 700;
+  margin: 18px 0 8px;
+  color: var(--ink);
+}
+
+.sheet-content h3:first-child {
+  margin-top: 0;
+}
+
+.sheet-content p {
+  margin-bottom: 14px;
+}
+
+.sheet-content .info-box {
+  background: var(--soft);
+  border-left: 3px solid var(--navy);
+  padding: 12px 14px;
+  border-radius: 0 10px 10px 0;
+  margin: 14px 0;
+  font-size: 13.5px;
+}
+
+/* ==========================================================================
+   サブ切り替えセグメントコントロール（政党再編史 ↔ 歴代大統領史）
+   ========================================================================== */
+.sub-nav-segmented {
+  display: flex;
+  background: var(--soft);
+  padding: 4px;
+  border-radius: 12px;
+  margin: 16px 0 24px;
+  border: 1px solid var(--line);
+  gap: 4px;
+}
+
+.sub-nav-btn {
+  flex: 1;
+  padding: 9px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.sub-nav-btn.active {
+  background: var(--card);
+  color: var(--navy);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* フィルターピル */
+.filter-pills-bar {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.filter-pills-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-pill {
+  flex-shrink: 0;
+  padding: 5px 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.filter-pill.active {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+/* ==========================================================================
+   歴代大統領カード・リスト
+   ========================================================================== */
+.presidents-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.president-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.president-card:hover, .president-card:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-color: var(--navy);
+}
+
+.president-card.featured {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.04) 0%, var(--card) 100%);
+  border-left: 4px solid var(--red-gop);
+}
+
+.president-avatar-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid var(--line);
+  background: var(--soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.president-card.featured .president-avatar-wrap {
+  border-color: var(--red-gop);
+}
+
+.president-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.president-avatar-placeholder {
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.president-avatar-placeholder.gop { background: var(--red-gop); }
+.president-avatar-placeholder.dem { background: var(--blue-dem); }
+.president-avatar-placeholder.dem-rep { background: #059669; }
+.president-avatar-placeholder.whig { background: #D97706; }
+.president-avatar-placeholder.federalist { background: #7C3AED; }
+.president-avatar-placeholder.independent { background: #64748B; }
+
+.president-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.president-meta-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+  flex-wrap: wrap;
+}
+
+.president-num {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--tint);
+  color: var(--navy);
+}
+
+.president-party-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.president-party-badge.gop { background: rgba(220, 38, 38, 0.12); color: var(--red-gop); }
+.president-party-badge.dem { background: rgba(37, 99, 235, 0.12); color: var(--blue-dem); }
+.president-party-badge.dem-rep { background: rgba(5, 150, 105, 0.12); color: #059669; }
+.president-party-badge.whig { background: rgba(217, 119, 6, 0.12); color: #D97706; }
+.president-party-badge.federalist { background: rgba(124, 58, 237, 0.12); color: #7C3AED; }
+.president-party-badge.independent { background: rgba(100, 116, 139, 0.12); color: #64748B; }
+
+.president-years {
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.president-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+  margin: 2px 0;
+}
+
+.president-en-name {
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 4px;
+}
+
+.president-policy-snippet {
+  font-size: 12px;
+  color: var(--ink);
+  opacity: 0.88;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.president-arrow {
+  color: var(--muted);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   勉強会進行（ゼミ台本・ラウンドテーブル）専用スタイル
+   ========================================================================== */
+.study-hero {
+  background: linear-gradient(135deg, rgba(27, 42, 74, 0.08) 0%, rgba(217, 119, 6, 0.07) 100%);
+  border: 1.5px solid var(--navy);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.study-hero-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.study-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--navy);
+  color: #fff;
+}
+
+.study-time-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(217, 119, 6, 0.15);
+  color: #B45309;
+}
+
+.study-section-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.study-step-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.study-step-tag {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.study-step-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: #B45309;
+  background: rgba(217, 119, 6, 0.12);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+/* 進行役セリフボックス */
+.script-box {
+  background: rgba(27, 42, 74, 0.04);
+  border-left: 4px solid var(--navy);
+  border-radius: 0 12px 12px 0;
+  padding: 14px 16px;
+  margin: 14px 0 18px;
+}
+
+.script-box-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.script-text {
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink);
+}
+
+/* 3人での問いかけ・対話ボックス */
+.discussion-box {
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.05) 0%, rgba(217, 119, 6, 0.06) 100%);
+  border: 1.5px dashed #DC2626;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 18px 0;
+}
+
+.discussion-box-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #DC2626;
+  margin-bottom: 8px;
+}
+
+.discussion-question {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* 図解・コンセプト解説 */
+.concept-tree-box {
+  background: var(--soft);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 14px 0;
+  font-family: monospace, sans-serif;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--ink);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.hallmark-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 14px 0;
+}
+
+.hallmark-card {
+  background: var(--soft);
+  border-radius: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+}
+
+.hallmark-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 3px;
+}
+
+.hallmark-desc {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* ギブ・アンド・テイク対比カード */
+.deal-card {
+  background: var(--soft);
+  border-radius: 12px;
+  padding: 14px;
+  margin: 12px 0;
+  border-left: 4px solid #D97706;
+}
+
+.deal-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: #D97706;
+  margin-bottom: 4px;
+}
+
+/* 詳細深掘りアクションボタングループ */
+.action-links-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+}
+
+.action-jump-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--tint);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px 14px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.action-jump-btn:hover, .action-jump-btn:active {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+.action-jump-btn svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   現代アメリカの「4つの謎」ビジュアルカード
+   ========================================================================== */
+.puzzles-section {
+  margin-bottom: 32px;
+}
+
+.puzzles-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.puzzle-visual-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.puzzle-visual-card:hover, .puzzle-visual-card:active {
+  transform: translateY(-1px);
+  border-color: var(--navy);
+  box-shadow: 0 4px 14px rgba(27, 42, 74, 0.08);
+}
+
+.puzzle-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  color: var(--navy);
+}
+
+.puzzle-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.puzzle-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.puzzle-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.puzzle-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--tint);
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+.puzzle-desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ==========================================================================
+   インフォグラフィック・図解コンポーネント（SVGダイアグラム）
+   ========================================================================== */
+.diagram-canvas-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px;
+  margin: 18px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.diagram-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.diagram-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.diagram-subtitle {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.svg-diagram-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.svg-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 320px;
+}
+
+/* ==========================================================================
+   デイヴィッド・ベビントン4原則（洗練されたエディトリアルデザイン）
+   ========================================================================== */
+.bebbington-editorial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.beb-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.15s ease;
+}
+
+.beb-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.beb-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.beb-title-box {
+  flex: 1;
+}
+
+.beb-name {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.beb-en {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.beb-catch {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.beb-metaphor {
+  background: var(--soft);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.beb-metaphor strong {
+  color: #B45309;
+}
+
+.beb-impact {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink);
+  opacity: 0.9;
+  padding-left: 8px;
+  border-left: 2px solid var(--navy);
+}
+
+/* ==========================================================================
+   勉強会セクション：要点サマリー（箇条書き） ＆ 詳細解説ブロック
+   ========================================================================== */
+.summary-bullets-card {
+  background: linear-gradient(135deg, rgba(27, 42, 74, 0.05) 0%, rgba(217, 119, 6, 0.05) 100%);
+  border: 1.5px solid var(--navy);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 14px 0 18px;
+}
+
+.summary-bullets-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.summary-bullets-list {
+  margin: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-bullets-list li {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.details-wrapper {
+  margin: 18px 0;
+}
+
+.details-wrapper-head {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detail-block {
+  background: var(--soft);
+  border-radius: 12px;
+  padding: 13px 15px;
+  margin-bottom: 11px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.detail-block:hover, .detail-block:active {
+  background: var(--card);
+  border-color: var(--navy);
+  box-shadow: 0 3px 12px rgba(27, 42, 74, 0.08);
+  transform: translateY(-1px);
+}
+
+.detail-block-title {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.detail-block-text {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink);
+  opacity: 0.92;
+  margin: 0;
+  white-space: pre-line;
+}
+
+
+
+
+
+
+/* ==========================================================================
+   キリスト教3大系統（カトリック・プロテスタント・東方正教会）比較表・図解
+   ========================================================================== */
+.christianity-comparison-section {
+  margin: 26px 0 20px;
+}
+
+.common-doctrines-card {
+  background: linear-gradient(135deg, rgba(27, 42, 74, 0.04) 0%, rgba(5, 150, 105, 0.05) 100%);
+  border: 1.5px solid var(--navy);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+
+.common-doctrines-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.common-doctrines-lead {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0 0 14px;
+}
+
+.common-doctrines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.common-doctrine-item {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 13px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+
+.common-doctrine-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.common-doctrine-desc {
+  font-size: 11.5px;
+  color: var(--ink);
+  opacity: 0.88;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 3大学統のヘッダーカード */
+.branches-header-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.branch-hero-card {
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.branch-hero-card.catholic {
+  border-color: #7C3AED;
+  background: linear-gradient(180deg, rgba(124, 58, 237, 0.05) 0%, rgba(124, 58, 237, 0.01) 100%);
+}
+
+.branch-hero-card.protestant {
+  border-color: #D97706;
+  background: linear-gradient(180deg, rgba(217, 119, 6, 0.05) 0%, rgba(217, 119, 6, 0.01) 100%);
+}
+
+.branch-hero-card.orthodox {
+  border-color: #059669;
+  background: linear-gradient(180deg, rgba(5, 150, 105, 0.05) 0%, rgba(5, 150, 105, 0.01) 100%);
+}
+
+.branch-hero-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 6px;
+}
+
+.branch-hero-origin-tag {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.branch-hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.branch-hero-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.branch-hero-name {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.branch-hero-name.catholic { color: #7C3AED; }
+.branch-hero-name.protestant { color: #B45309; }
+.branch-hero-name.orthodox { color: #047857; }
+
+.branch-hero-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.branch-hero-badge.catholic { background: rgba(124, 58, 237, 0.12); color: #7C3AED; }
+.branch-hero-badge.protestant { background: rgba(217, 119, 6, 0.12); color: #B45309; }
+.branch-hero-badge.orthodox { background: rgba(5, 150, 105, 0.12); color: #047857; }
+
+.branch-hero-origin {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.branch-hero-essence {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.branch-hero-pop {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.45;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+
+/* 比較対照テーブル（スクロール対応） */
+.compare-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  margin-bottom: 22px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.compare-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.compare-table th, .compare-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.compare-table th {
+  background: var(--soft);
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 12.5px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.compare-table tr:last-child td {
+  border-bottom: none;
+}
+
+.compare-category-cell {
+  width: 140px;
+  background: var(--soft);
+  border-right: 1px solid var(--line);
+}
+
+.compare-cat-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.compare-cat-sub {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.compare-col-catholic {
+  width: 28%;
+  background: rgba(124, 58, 237, 0.015);
+  border-right: 1px solid var(--line);
+}
+
+.compare-col-protestant {
+  width: 28%;
+  background: rgba(217, 119, 6, 0.015);
+  border-right: 1px solid var(--line);
+}
+
+.compare-col-orthodox {
+  width: 28%;
+  background: rgba(5, 150, 105, 0.015);
+}
+
+.compare-cell-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.compare-cell-title.catholic { color: #7C3AED; }
+.compare-cell-title.protestant { color: #B45309; }
+.compare-cell-title.orthodox { color: #047857; }
+
+.compare-cell-text {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-line;
+}
+
+.compare-cell-bullets {
+  margin: 6px 0 0;
+  padding-left: 16px;
+  list-style-type: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.compare-cell-bullets li {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   政党史：民主党 vs 共和党 徹底比較表・党マトリックス・個別発展史
+   ========================================================================== */
+
+/* 民主党 vs 共和党 徹底比較表 */
+.party-compare-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  margin-bottom: 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.party-compare-table {
+  width: 100%;
+  min-width: 660px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.party-compare-table th, .party-compare-table td {
+  padding: 13px 15px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.party-compare-table th {
+  background: var(--soft);
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 13px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.party-col-dem {
+  width: 42%;
+  background: rgba(37, 99, 235, 0.02);
+  border-right: 1px solid var(--line);
+}
+
+.party-col-gop {
+  width: 42%;
+  background: rgba(220, 38, 38, 0.02);
+}
+
+.party-cell-title {
+  font-size: 12.5px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.party-cell-title.dem { color: #2563EB; }
+.party-cell-title.gop { color: #DC2626; }
+
+/* 党としての政策・思想マトリックス（軌跡） */
+.party-trajectory-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow);
+}
+
+.party-trajectory-eras {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.trajectory-era-item {
+  background: var(--soft);
+  border-radius: 10px;
+  padding: 11px 13px;
+  border-left: 3px solid var(--navy);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.trajectory-era-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.trajectory-era-year {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--navy);
+}
+
+.trajectory-era-badges {
+  display: flex;
+  gap: 6px;
+}
+
+.trajectory-badge-dem {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #2563EB;
+  background: rgba(37, 99, 235, 0.1);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.trajectory-badge-gop {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #DC2626;
+  background: rgba(220, 38, 38, 0.1);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.trajectory-era-desc {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* 民主党・共和党 独立個別発展史 */
+.standalone-party-hero {
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+  border: 1.5px solid var(--line);
+}
+
+.standalone-party-hero.dem {
+  border-color: #2563EB;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.06) 0%, rgba(37, 99, 235, 0.01) 100%);
+}
+
+.standalone-party-hero.gop {
+  border-color: #DC2626;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.06) 0%, rgba(220, 38, 38, 0.01) 100%);
+}
+
+.standalone-party-title {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.standalone-party-title.dem { color: #2563EB; }
+.standalone-party-title.gop { color: #DC2626; }
+
+.standalone-stage-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+
+.standalone-stage-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.standalone-stage-era {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.standalone-stage-phase {
+  font-family: var(--serif);
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   トランプ政権 人物相関図（インタラクティブ・ネットワークダイアグラム）
+   ========================================================================== */
+.trump-network-section {
+  margin-bottom: 26px;
+}
+
+.trump-network-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.trump-network-svg-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.trump-network-svg {
+  width: 100%;
+  min-width: 580px;
+  max-width: 720px;
+  margin: 0 auto;
+  display: block;
+}
+
+.network-node-g {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.network-node-g:hover {
+  opacity: 0.9;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+}
+
+.network-center-circle {
+  filter: drop-shadow(0 6px 14px rgba(220, 38, 38, 0.3));
+}
+
+/* 相関図クラスター解説カード */
+.network-clusters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.network-cluster-box {
+  background: var(--soft);
+  border-radius: 10px;
+  padding: 11px 13px;
+  border-top: 3px solid var(--line);
+}
+
+.network-cluster-title {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.network-cluster-actors {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.network-actor-row {
+  font-size: 11.5px;
+  color: var(--ink);
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 5px;
+  transition: background 0.15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.network-actor-row:hover {
+  background: var(--card);
+}
+
+/* ==========================================================================
+   勉強会レジュメ：見出し強化・トップ画面箇条書き・詳細モーダル
+   ========================================================================== */
+.detail-block {
+  background: var(--soft);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1.5px solid transparent;
+}
+
+.detail-block:hover, .detail-block:active {
+  background: var(--card);
+  border-color: var(--navy);
+  box-shadow: 0 4px 14px rgba(27, 42, 74, 0.09);
+  transform: translateY(-1px);
+}
+
+.detail-block-title {
+  font-family: var(--serif);
+  font-size: 16.5px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+
+.detail-block-summary-list {
+  margin: 10px 0 12px;
+  padding-left: 18px;
+  list-style-type: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-block-summary-list li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.detail-expand-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #B45309;
+  background: rgba(217, 119, 6, 0.08);
+  padding: 3px 9px;
+  border-radius: 6px;
+}
+
+/* ==========================================================================
+   単語帳・用語集（Glossary）＆ リアルタイム検索機能
+   ========================================================================== */
+.glossary-hero {
+  background: linear-gradient(135deg, rgba(27, 42, 74, 0.05) 0%, rgba(217, 119, 6, 0.06) 100%);
+  border: 1.5px solid var(--navy);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-bottom: 20px;
+}
+
+.glossary-search-container {
+  margin: 14px 0 18px;
+  position: relative;
+}
+
+.glossary-search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.glossary-search-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--muted);
+  pointer-events: none;
+}
+
+.glossary-search-input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  font-size: 14.5px;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.glossary-search-input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(27, 42, 74, 0.12);
+}
+
+.glossary-search-clear {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.glossary-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.glossary-card:hover, .glossary-card:active {
+  border-color: var(--navy);
+  box-shadow: 0 4px 12px rgba(27, 42, 74, 0.08);
+  transform: translateY(-1px);
+}
+
+.glossary-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.glossary-card-term {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.35;
+}
+
+.glossary-card-kana {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.glossary-card-simple {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.glossary-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+
+.topbar-search-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--navy);
+  background: var(--soft);
+  padding: 5px 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  transition: all 0.15s ease;
+}
+
+.topbar-search-link:hover {
+  background: var(--card);
+  border-color: var(--navy);
+}
+
+
+/* ==========================================================================
+   主要教派・系統 比較マトリックス（信義・信徒数・組織・政治）
+   ========================================================================== */
+.denom-matrix-section {
+  margin-bottom: 26px;
+}
+
+.matrix-scroll-hint {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11.5px;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.matrix-table-wrap {
+  overflow-x: auto;
+  border-radius: 14px;
+  border: 1.5px solid var(--line);
+  background: var(--card);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  margin-bottom: 22px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.matrix-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.matrix-table th {
+  background: var(--soft);
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 800;
+  padding: 13px 14px;
+  border-bottom: 2px solid var(--line);
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.matrix-table td {
+  padding: 13px 13px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.matrix-table tbody tr {
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.matrix-table tbody tr:hover {
+  background: rgba(27, 42, 74, 0.04);
+}
+
+.matrix-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.matrix-col-denom {
+  min-width: 165px;
+}
+
+.matrix-denom-name {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.matrix-denom-badge {
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: var(--tint);
+  color: var(--navy);
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.matrix-col-pop {
+  min-width: 140px;
+}
+
+.matrix-pop-us {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: #B45309;
+  margin-bottom: 2px;
+}
+
+.matrix-pop-detail {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.matrix-bullet-list {
+  margin: 0;
+  padding-left: 14px;
+  list-style-type: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.matrix-bullet-list li {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+.matrix-politics-list li {
+  color: var(--ink);
+}
+
+.matrix-politics-list li strong {
+  color: #DC2626;
+}
+
+
+
+/* ==========================================================================
+   連邦議会 勢力図（上院・下院の議員数と過半数ライン）
+   ========================================================================== */
+.congress-seats-section {
+  margin-bottom: 26px;
+}
+
+.congress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.congress-card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.congress-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.congress-card-title {
+  font-family: var(--serif);
+  font-size: 15.5px;
+  font-weight: 800;
+  color: var(--navy);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.congress-card-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(220, 38, 38, 0.1);
+  color: var(--red-gop);
+}
+
+.congress-numbers-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.congress-party-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.congress-party-stat.gop {
+  align-items: flex-start;
+}
+
+.congress-party-stat.dem {
+  align-items: flex-end;
+}
+
+.congress-party-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.congress-seats-num {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.congress-seats-num.gop { color: var(--red-gop); }
+.congress-seats-num.dem { color: var(--blue-dem); }
+
+/* プログレスバーと過半数ライン */
+.congress-bar-container {
+  position: relative;
+  margin: 8px 0 14px;
+}
+
+.congress-bar-wrap {
+  display: flex;
+  height: 22px;
+  border-radius: 11px;
+  overflow: hidden;
+  background: var(--soft);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.congress-bar-seg {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  transition: width 0.3s ease;
+}
+
+.congress-bar-seg.gop {
+  background: linear-gradient(90deg, #DC2626 0%, #EF4444 100%);
+}
+
+.congress-bar-seg.dem {
+  background: linear-gradient(90deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.congress-majority-marker {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 50%;
+  width: 2px;
+  background: #111827;
+  transform: translateX(-50%);
+  z-index: 2;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+}
+
+.congress-majority-tag {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.congress-meta-box {
+  background: var(--soft);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.congress-meta-row {
+  margin-bottom: 4px;
+}
+
+.congress-meta-row:last-child {
+  margin-bottom: 0;
+}
+
+.congress-takeaways-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.congress-takeaway-card {
+  background: linear-gradient(135deg, rgba(27, 42, 74, 0.03) 0%, rgba(220, 38, 38, 0.03) 100%);
+  border: 1px solid var(--line);
+  border-left: 3.5px solid var(--navy);
+  border-radius: 10px;
+  padding: 11px 13px;
+}
+
+.congress-takeaway-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.congress-takeaway-desc {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0;
+}
+
+
+
+/* ==========================================================================
+   サイト内全文横断検索システム（Cmd+K / グローバル検索モーダル）
+   ========================================================================== */
+.topbar-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(27, 42, 74, 0.06);
+  border: 1px solid var(--line);
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: var(--navy);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.topbar-search-btn:hover {
+  background: rgba(27, 42, 74, 0.12);
+  border-color: var(--navy);
+  transform: translateY(-1px);
+}
+
+.topbar-kbd {
+  font-family: inherit;
+  font-size: 10px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--muted);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+/* 検索モーダル バックドロップ */
+.search-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.search-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* 検索モーダル ダイアログ */
+.search-modal {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.96);
+  width: 92%;
+  max-width: 620px;
+  max-height: 80vh;
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) scale(1);
+}
+
+.search-modal-head {
+  display: flex;
+  align-items: center;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+  background: var(--card);
+}
+
+.search-modal-icon {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.search-modal-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 15.5px;
+  font-family: inherit;
+  color: var(--ink);
+  background: transparent;
+  padding: 0;
+}
+
+.search-modal-input::placeholder {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.search-modal-close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--muted);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-modal-close-btn kbd {
+  font-family: inherit;
+  font-size: 11px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 2px 7px;
+  color: var(--muted);
+}
+
+/* クイック質問サジェストピル */
+.search-quick-tags {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--soft);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+}
+
+.search-quick-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.search-tag-chip {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 3px 10px;
+  font-size: 11.5px;
+  color: var(--navy);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.search-tag-chip:hover {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+/* 検索結果ボディ */
+.search-modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px;
+  max-height: 60vh;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.search-empty-state {
+  text-align: center;
+  padding: 36px 20px;
+  color: var(--muted);
+}
+
+.search-empty-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.search-result-item {
+  background: var(--soft);
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-result-item:hover, .search-result-item:active {
+  background: var(--card);
+  border-color: var(--navy);
+  box-shadow: 0 4px 14px rgba(27, 42, 74, 0.08);
+  transform: translateY(-1px);
+}
+
+.search-result-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.search-result-badge {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 5px;
+  background: var(--tint);
+  color: var(--navy);
+}
+
+.search-result-action {
+  font-size: 11px;
+  font-weight: 700;
+  color: #B45309;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.search-result-title {
+  font-family: var(--serif);
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+.search-result-snippet {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink);
+  opacity: 0.88;
+}
+
+.search-result-snippet mark {
+  background: rgba(245, 158, 11, 0.28);
+  color: #B45309;
+  font-weight: 800;
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+/* 該当箇所へスクロールした際のパルスハイライトアニメーション */
+@keyframes pulseHighlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.6);
+    border-color: #D97706;
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(217, 119, 6, 0.2);
+    border-color: #D97706;
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(217, 119, 6, 0);
+    border-color: var(--line);
+  }
+}
+
+.target-pulse-highlight {
+  animation: pulseHighlight 2.2s ease-out;
+  border-color: #D97706 !important;
+}
+
+
+
+/* ==========================================================================
+   全米州別・支持基盤マップ（レッドステート vs ブルーステート vs スイングステート）
+   ========================================================================== */
+.state-map-section {
+  margin-bottom: 28px;
+}
+
+.state-map-card {
+  background: var(--card);
+  border: 1.5px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.state-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.map-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-legend-box {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.map-legend-box.red { background: #DC2626; }
+.map-legend-box.blue { background: #2563EB; }
+.map-legend-box.swing { background: #8B5CF6; }
+
+/* 州タイルグリッド（US Cartogram） */
+.state-grid-scroll-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 10px;
+}
+
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(36px, 1fr));
+  grid-template-rows: repeat(7, 38px);
+  gap: 5px;
+  min-width: 480px;
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.state-tile {
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.state-tile:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  z-index: 5;
+}
+
+.state-tile.red {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+}
+
+.state-tile.blue {
+  background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.state-tile.swing {
+  background: linear-gradient(135deg, #A855F7 0%, #7C3AED 100%);
+  border: 1.5px solid #FDE047;
+}
+
+.state-tile-code {
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+.state-tile-name {
+  font-size: 8px;
+  font-weight: 600;
+  opacity: 0.92;
+  white-space: nowrap;
+  transform: scale(0.85);
+  line-height: 1;
+}
+
+/* 3分類勢力カードグリッド */
+.state-categories-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.state-cat-card {
+  border-radius: 12px;
+  padding: 13px 15px;
+  border: 1.5px solid var(--line);
+  background: var(--soft);
+}
+
+.state-cat-card.red {
+  border-left: 4px solid #DC2626;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.03) 0%, var(--card) 100%);
+}
+
+.state-cat-card.blue {
+  border-left: 4px solid #2563EB;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, var(--card) 100%);
+}
+
+.state-cat-card.swing {
+  border-left: 4px solid #8B5CF6;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.04) 0%, var(--card) 100%);
+}
+
+.state-cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.state-cat-title {
+  font-size: 13.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.state-cat-title.red { color: #DC2626; }
+.state-cat-title.blue { color: #2563EB; }
+.state-cat-title.swing { color: #7C3AED; }
+
+.state-cat-regions {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.state-cat-features {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.state-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.state-rep-pill {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.state-rep-pill strong {
+  font-weight: 800;
+}
+
