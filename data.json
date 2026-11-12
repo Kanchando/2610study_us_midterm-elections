@@ -3,12 +3,84 @@
     "title": "アメリカ政治とキリスト教思想史",
     "subtitle": "2026年中間選挙から読み解く、二大政党再編と宗教2000年の深層",
     "description": "トランプ政権の権力構造、白人福音派の支持、テクノリバタリアンの台頭を、アメリカ二大政党史とキリスト教の起源・東西分裂・宗教改革から逆引きで探求する政治勉強会資料アーカイブ。",
-    "updated_at": "2026-10-25",
+    "updated_at": "2026-11-12",
     "study_group": "政治勉強会 2026年秋 特別企画"
   },
   "current_politics": {
-    "title": "2026年秋：中間選挙と第2次トランプ政権の権力構図",
-    "lead": "なぜトランプは「信心深いとは言えない」にもかかわらず白人福音派の8割から熱烈に支持されるのか？ なぜホワイトハウスに『信仰局』が置かれ、親イスラエル・対イラン軍事作戦が神の名で語られるのか？ 現代の不可解な現象を出発点に、その深層を解き明かす。",
+    "title": "2026年中間選挙：民主党が上下両院を奪還",
+    "lead": "選挙前の『トリプル・レッド』は崩れ、2027年からトランプ大統領と民主党議会が向き合う分割政府へ。結果、共和党敗因、政策制約、日本への波及を、選挙前の構図と比較しながら読み解く。",
+    "election_update": {
+      "as_of": "2026年11月12日 13:31 JST",
+      "eyebrow": "MIDTERM RESULTS UPDATE",
+      "headline": "民主党が上下両院を奪還――政権の『白紙委任』に有権者がブレーキ",
+      "summary": "生活費への不満を軸に、通常の与党反動、医療費、イラン戦争、支持層の離反、候補者要因が重なった。民主党の勝利は大きいが、恒久的な支持転換やトランプ政策の自動消滅を意味しない。",
+      "status_note": "APは上院支配を11月3日23:36 ET、下院支配を11月4日1:24 ETに判定。議席数は11月11日時点の速報スナップショットで、最終認証値ではない。",
+      "chambers": [
+        {"id": "senate", "name": "上院", "total": 100, "majority": 51, "dem": 55, "gop": 44, "pending": 1, "previous_dem": 47, "previous_gop": 53, "status": "民主党会派が多数派を奪還", "note": "民主55は無所属2人を含む会派。アラスカ1議席は未判定。", "source_time": "11月11日 ミシシッピ判定後"},
+        {"id": "house", "name": "下院", "total": 435, "majority": 218, "dem": 255, "gop": 168, "pending": 12, "previous_dem": 215, "previous_gop": 220, "status": "民主党が多数派を奪還", "note": "民主255・共和168・未判定12。全435議席の最終値ではない。", "source_time": "11月11日 12:13 ET"}
+      ],
+      "flip_summary": [
+        {"value": "8", "label": "上院・共和→民主", "detail": "TX / NC / SC / OH / KS / IA / ME / MS"},
+        {"value": "44", "label": "下院・共和→民主", "detail": "共和党から民主党への転換議席"},
+        {"value": "2", "label": "下院・民主→共和", "detail": "下院の民主党から共和党への転換議席"},
+        {"value": "+42", "label": "下院の民主純増", "detail": "転換議席の差。総議席速報とは時点が異なる"}
+      ],
+      "state_results": [
+        {"code": "TX", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "James Talarico（D）", "margin": "D+12.1pt"},
+        {"code": "NC", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Roy Cooper（D）", "margin": "D+19.8pt"},
+        {"code": "SC", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Annie Andrews（D）", "margin": "D+4.5pt"},
+        {"code": "OH", "kind": "gain", "race": "S", "title": "上院特別選・民主転換", "winner": "Sherrod Brown（D）", "margin": "D+4.8pt"},
+        {"code": "KS", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Adam Hamilton（D）", "margin": "D+5.0pt"},
+        {"code": "IA", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Josh Turek（D）", "margin": "D+4.2pt"},
+        {"code": "ME", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Troy Jackson（D）", "margin": "D+6.2pt"},
+        {"code": "MS", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Scott Colom（D）", "margin": "D+0.5pt"},
+        {"code": "MI", "kind": "hold", "race": "S/G", "title": "上院・知事を民主維持", "winner": "El-Sayed / Benson（D）", "margin": "S D+7.0 / G D+10.9"},
+        {"code": "GA", "kind": "mixed", "race": "S/G", "title": "上院維持・知事転換", "winner": "Ossoff / Bottoms（D）", "margin": "S D+18.0 / G D+8.6"},
+        {"code": "AK", "kind": "pending", "race": "S", "title": "上院・未判定", "winner": "Peltola（D）先行", "margin": "第一選択票 D+1.8pt"},
+        {"code": "AZ", "kind": "hold", "race": "G", "title": "知事・民主維持", "winner": "Katie Hobbs（D）", "margin": "D+13.1pt"},
+        {"code": "PA", "kind": "hold", "race": "G", "title": "知事・民主維持", "winner": "Josh Shapiro（D）", "margin": "D+22.1pt"},
+        {"code": "WI", "kind": "hold", "race": "G", "title": "知事・民主維持", "winner": "David Crowley（D）", "margin": "D+8.0pt"},
+        {"code": "NV", "kind": "gain", "race": "G", "title": "知事・民主転換", "winner": "Aaron Ford（D）", "margin": "D+7.6pt"}
+      ],
+      "cause_chain": [
+        {"step": "1", "title": "生活費が中心争点", "metric": "約9割", "detail": "AP Voter Pollで生活費を『決定的／主要要因』と回答。該当層の約6割が民主党下院候補へ。", "weight": "core"},
+        {"step": "2", "title": "政策責任が政権へ帰属", "metric": "約2/3", "detail": "生活費重視層の約3分の2が、トランプ政策はインフレを悪化させたと回答。", "weight": "core"},
+        {"step": "3", "title": "医療費・戦争が増幅", "metric": "約6割", "detail": "医療費への強い懸念、イラン開戦への否定評価が不満を上乗せ。争点は同じ有権者内で重複する。", "weight": "amplifier"},
+        {"step": "4", "title": "支持連合と投票熱の反転", "metric": "58対48", "detail": "選挙前の熱意は民主系58%、共和系48%。若者・ヒスパニック・穏健派などが民主側へ移動。", "weight": "amplifier"},
+        {"step": "5", "title": "候補者要因が赤州で増幅", "metric": "8州", "detail": "TXやSCなどで本選適性の弱さが全国的逆風を拡大。ただし候補者だけでは全国波を説明できない。", "weight": "local"}
+      ],
+      "hypothesis_checks": [
+        {"label": "生活費への不満が中心", "status": "強く支持", "tone": "supported"},
+        {"label": "通常の中間選挙反動だけ", "status": "部分支持", "tone": "partial"},
+        {"label": "戦争だけで負けた", "status": "修正必要", "tone": "partial"},
+        {"label": "民主党政策への全面信任", "status": "未判定", "tone": "uncertain"}
+      ],
+      "power_shift": {
+        "starts": "2027年1月3日正午",
+        "president": ["民主党法案への拒否権", "既存法に基づく行政・外交・通商権限", "法案を単独成立させる権限はない"],
+        "congress": ["新規共和党法案を阻止", "予算・歳出・人事承認を制約", "公聴会・文書要求・召喚状で監督強化"],
+        "hinge": "通常法案の上院討論終結は原則60票。拒否権覆しは上下両院各3分の2。主戦場は立法だけでなく、予算・人事・監督・裁判・行政実施へ移る。"
+      },
+      "impact_cards": [
+        {"icon": "¥", "title": "金利・為替", "detail": "選挙後の持続的な米金利低下や円高定着は未確認。FRB、日銀、原油、インフレを同時に見る。", "tag": "単線予測を避ける"},
+        {"icon": "関", "title": "関税・対米投資", "detail": "民主党勝利で関税は自動撤廃されない。232条・301条など法源別、品目別に確認する。5,500億ドル枠も自動失効しない。", "tag": "法源と実行額を分離"},
+        {"icon": "AI", "title": "半導体・AI・重要鉱物", "detail": "対中経済安保は継続しやすい。装置・材料・電力・供給網に機会がある一方、輸出管理と米国内調達条件が制約。", "tag": "継続性が高い"},
+        {"icon": "油", "title": "原油・海運", "detail": "敗北は自動停戦を意味しない。中東情勢は原油、航行、保険料を通じ日本の輸入コストと実質所得へ波及。", "tag": "下振れリスク"}
+      ],
+      "scenarios": [
+        {"name": "制約付き分割政府", "position": "基準", "detail": "立法停滞、歳出交渉、監督強化。既存行政権限は継続。"},
+        {"name": "生活費を軸とする妥協", "position": "上振れ", "detail": "医療・住宅・エネルギー、限定的通商緩和で合意。"},
+        {"name": "制度対立と行政強硬化", "position": "下振れ", "detail": "政府閉鎖、召喚状訴訟、人事封鎖、外交・通商のエスカレーション。"}
+      ],
+      "sources": [
+        {"label": "AP 議会支配の判定時系列", "url": "https://www.ap.org/the-definitive-source/behind-the-news/calling-control-of-congress-in-the-2026-midterm-elections/"},
+        {"label": "Roll Call 主要結果", "url": "https://rollcall.com/2026/11/03/key-midterm-election-results/"},
+        {"label": "AP 生活費と投票", "url": "https://apnews.com/article/economy-trump-midterms-inflation-ai-wealthy-healthcare-f8dbe8800549340c8a75d956302c126b"},
+        {"label": "KFF 医療費と投票", "url": "https://www.kff.org/public-opinion/health-care-in-the-2026-midterm-election/"},
+        {"label": "Pew トランプ支持率", "url": "https://www.pewresearch.org/politics/2026/10/08/trumps-approval-rating-drops-as-fewer-americans-are-confident-in-his-handling-of-the-economy-other-issues/"},
+        {"label": "米上院 投票手続", "url": "https://www.senate.gov/about/powers-procedures/voting.htm"}
+      ]
+    },
     "midterm_2026": {
       "date": "2026年11月3日",
       "summary": "大統領任期（4年）の中間に行われる連邦議会選挙。下院全435議席、上院100議席中約3分の1（33〜34議席）が改選。大統領自身の選び直しではないが、残り2年の政権運営（立法・予算・司法人事承認）の主導権を左右する政権への中間評価。",

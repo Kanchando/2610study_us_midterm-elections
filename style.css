@@ -2748,6 +2748,807 @@ button { font: inherit; color: inherit; background: none; border: none; cursor: 
 
 
 /* ==========================================================================
+   2026年中間選挙 結果アップデート
+   ========================================================================== */
+.election-update-section {
+  margin: 18px 0 34px;
+}
+
+.update-head-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid rgba(37, 99, 235, 0.24);
+  border-radius: 18px 18px 8px 8px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(59, 130, 246, 0.18), transparent 45%),
+    linear-gradient(135deg, rgba(37, 99, 235, 0.09), var(--card) 62%);
+}
+
+.update-head-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--blue-dem) 0 58%, var(--red-gop) 58% 100%);
+}
+
+.update-head-copy {
+  min-width: 0;
+}
+
+.update-head-copy h2 {
+  max-width: 460px;
+  margin: 2px 0 8px;
+  font-family: var(--serif);
+  font-size: 21px;
+  line-height: 1.38;
+  color: var(--ink);
+}
+
+.update-head-copy p {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.update-status-pill {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border: 1px solid rgba(37, 99, 235, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: #1D4ED8;
+  font-size: 10px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.update-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22C55E;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.16);
+}
+
+.update-caveat {
+  padding: 9px 13px;
+  border: 1px solid rgba(245, 158, 11, 0.28);
+  border-top: 0;
+  border-radius: 0 0 10px 10px;
+  background: rgba(245, 158, 11, 0.08);
+  color: var(--muted);
+  font-size: 10.8px;
+  line-height: 1.55;
+}
+
+.update-caveat strong {
+  color: #B45309;
+}
+
+.result-chambers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.result-chamber-card {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+  border-top: 4px solid var(--blue-dem);
+  border-radius: 14px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.result-chamber-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.result-chamber-kicker {
+  display: block;
+  color: var(--muted);
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+}
+
+.result-chamber-head h3 {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+.result-control-badge {
+  padding: 3px 7px;
+  border-radius: 5px;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--blue-dem);
+  font-size: 9px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.result-counts {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: end;
+  gap: 8px;
+  margin: 13px 0 23px;
+}
+
+.result-count {
+  display: grid;
+  line-height: 1.1;
+}
+
+.result-count.gop {
+  text-align: right;
+}
+
+.result-count span,
+.result-count-center span {
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.result-count strong {
+  font-family: var(--serif);
+  font-size: 26px;
+}
+
+.result-count.dem strong { color: var(--blue-dem); }
+.result-count.gop strong { color: var(--red-gop); }
+
+.result-count small {
+  color: var(--muted);
+  font-size: 8.5px;
+}
+
+.result-count-center {
+  display: grid;
+  justify-items: center;
+  padding-bottom: 4px;
+  color: var(--navy);
+}
+
+.result-count-center strong {
+  font-size: 12px;
+}
+
+.result-bar-shell {
+  position: relative;
+  margin: 5px 0 13px;
+}
+
+.result-bar {
+  display: flex;
+  height: 24px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--soft);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.result-bar > div {
+  display: grid;
+  place-items: center;
+  min-width: 4px;
+  color: white;
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.result-bar-dem { background: linear-gradient(90deg, #1D4ED8, #3B82F6); }
+.result-bar-gop { background: linear-gradient(90deg, #EF4444, #B91C1C); }
+.result-bar-pending { background: repeating-linear-gradient(135deg, #9CA3AF 0 5px, #6B7280 5px 10px); }
+
+.result-majority-line {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  z-index: 2;
+  width: 2px;
+  background: var(--ink);
+}
+
+.result-majority-tag {
+  position: absolute;
+  top: -17px;
+  z-index: 3;
+  transform: translateX(-50%);
+  padding: 0 4px;
+  border-radius: 3px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 7.5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.result-chamber-note {
+  display: grid;
+  gap: 3px;
+  padding-top: 9px;
+  border-top: 1px solid var(--line);
+  font-size: 10.5px;
+  line-height: 1.45;
+}
+
+.result-chamber-note strong { color: var(--blue-dem); }
+.result-chamber-note span { color: var(--ink); }
+.result-chamber-note small { color: var(--muted); }
+
+.flip-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.flip-stat-card {
+  display: grid;
+  align-content: start;
+  min-height: 104px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: linear-gradient(145deg, rgba(37, 99, 235, 0.06), var(--card));
+}
+
+.flip-stat-card strong {
+  color: var(--blue-dem);
+  font-family: var(--serif);
+  font-size: 23px;
+  line-height: 1.1;
+}
+
+.flip-stat-card span {
+  margin: 3px 0;
+  color: var(--ink);
+  font-size: 9.8px;
+  font-weight: 800;
+}
+
+.flip-stat-card small {
+  color: var(--muted);
+  font-size: 8.5px;
+  line-height: 1.4;
+}
+
+.update-subsection {
+  margin-top: 32px;
+}
+
+.result-map-card {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--shadow-sm);
+}
+
+.result-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 9.5px;
+  font-weight: 700;
+}
+
+.result-map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.result-legend-swatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+}
+
+.result-legend-swatch.gain { background: #1D4ED8; }
+.result-legend-swatch.hold { background: #60A5FA; }
+.result-legend-swatch.mixed { background: linear-gradient(135deg, #1D4ED8 50%, #7DD3FC 50%); }
+.result-legend-swatch.pending { background: #8B5CF6; }
+.result-race-key { margin-left: auto; }
+
+.result-state-grid {
+  margin-top: 8px;
+}
+
+.state-tile.result-tile {
+  position: relative;
+  cursor: help;
+}
+
+.state-tile.result-tile.gain { background: linear-gradient(135deg, #2563EB, #1E40AF); }
+.state-tile.result-tile.hold { background: linear-gradient(135deg, #93C5FD, #3B82F6); }
+.state-tile.result-tile.mixed { background: linear-gradient(135deg, #1D4ED8 0 50%, #7DD3FC 50% 100%); }
+.state-tile.result-tile.pending {
+  background: linear-gradient(135deg, #A855F7, #6D28D9);
+  border: 1.5px solid #FDE047;
+}
+.state-tile.result-tile.other {
+  background: #CBD5E1;
+  color: #475569;
+  box-shadow: none;
+  opacity: 0.72;
+}
+
+.result-race-mark {
+  position: absolute;
+  right: 2px;
+  bottom: 1px;
+  font-size: 6px;
+  font-weight: 900;
+  opacity: 0.92;
+}
+
+.result-state-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.result-state-card {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 9px;
+  border: 1px solid var(--line);
+  border-left: 3px solid #60A5FA;
+  border-radius: 8px;
+  background: var(--bg);
+}
+
+.result-state-card.gain { border-left-color: #1D4ED8; }
+.result-state-card.pending { border-left-color: #8B5CF6; }
+.result-state-card.mixed { border-left-color: #0EA5E9; }
+
+.result-state-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-state-card-head strong {
+  color: var(--blue-dem);
+  font-family: var(--serif);
+  font-size: 15px;
+}
+
+.result-state-card-head span {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(37, 99, 235, 0.1);
+  color: var(--blue-dem);
+  font-size: 7.5px;
+  font-weight: 900;
+}
+
+.result-state-card small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-state-card b {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.result-state-card em {
+  color: var(--blue-dem);
+  font-size: 8.5px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.visual-footnote {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 7px;
+  background: var(--tint);
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.55;
+}
+
+.cause-chain {
+  display: grid;
+  gap: 8px;
+}
+
+.cause-node {
+  position: relative;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  align-items: start;
+  gap: 11px;
+  padding: 12px 36px 12px 12px;
+  border: 1px solid var(--line);
+  border-left: 4px solid #64748B;
+  border-radius: 11px;
+  background: var(--card);
+}
+
+.cause-node.core { border-left-color: var(--red-gop); }
+.cause-node.amplifier { border-left-color: #F59E0B; }
+.cause-node.local { border-left-color: #8B5CF6; }
+
+.cause-step {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.cause-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cause-title-row h3 {
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.cause-title-row strong {
+  color: var(--red-gop);
+  font-family: var(--serif);
+  font-size: 17px;
+  white-space: nowrap;
+}
+
+.cause-copy p {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+.cause-arrow {
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  color: var(--navy);
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.hypothesis-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.hypothesis-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  font-size: 9.5px;
+}
+
+.hypothesis-item span { color: var(--ink); font-weight: 700; }
+.hypothesis-item strong { white-space: nowrap; }
+.hypothesis-item.supported strong { color: #047857; }
+.hypothesis-item.partial strong { color: #B45309; }
+.hypothesis-item.uncertain strong { color: #6B7280; }
+
+.power-shift-diagram {
+  display: grid;
+  grid-template-columns: 1fr 76px 1fr;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.power-side {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--card);
+}
+
+.power-side.president { border-top: 4px solid var(--red-gop); }
+.power-side.congress { border-top: 4px solid var(--blue-dem); }
+
+.power-side-label {
+  color: var(--muted);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.power-side h3 {
+  margin: 1px 0 8px;
+  font-family: var(--serif);
+  font-size: 15px;
+}
+
+.power-side ul {
+  display: grid;
+  gap: 5px;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.45;
+}
+
+.power-hinge {
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.power-hinge span {
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.power-hinge strong {
+  color: var(--navy);
+  font-size: 10px;
+}
+
+.power-hinge-line {
+  position: relative;
+  width: 66px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red-gop), var(--blue-dem));
+}
+
+.power-hinge-line::before,
+.power-hinge-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border: solid currentColor;
+  border-width: 2px 2px 0 0;
+}
+
+.power-hinge-line::before { left: 0; transform: translateY(-50%) rotate(-135deg); }
+.power-hinge-line::after { right: 0; transform: translateY(-50%) rotate(45deg); }
+
+.power-hinge-line i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translate(-50%, -50%);
+  border: 3px solid var(--card);
+  border-radius: 50%;
+  background: var(--navy);
+}
+
+.power-rule-box {
+  margin-top: 9px;
+  padding: 10px 12px;
+  border-left: 4px solid var(--navy);
+  border-radius: 8px;
+  background: var(--tint);
+  color: var(--ink);
+  font-size: 10.5px;
+  line-height: 1.55;
+}
+
+.impact-update-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.impact-update-card {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: var(--card);
+}
+
+.impact-icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.impact-update-card span {
+  color: var(--blue-dem);
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.impact-update-card h3 {
+  margin: 1px 0 4px;
+  font-size: 12px;
+}
+
+.impact-update-card p {
+  color: var(--muted);
+  font-size: 9.5px;
+  line-height: 1.55;
+}
+
+.scenario-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.scenario-strip article {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: linear-gradient(160deg, var(--card), var(--bg));
+}
+
+.scenario-strip span {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-size: 7.5px;
+  font-weight: 900;
+}
+
+.scenario-strip h3 {
+  margin: 5px 0 3px;
+  font-size: 10.5px;
+}
+
+.scenario-strip p {
+  color: var(--muted);
+  font-size: 8.5px;
+  line-height: 1.45;
+}
+
+.update-sources {
+  margin-top: 18px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--card);
+}
+
+.update-sources summary {
+  cursor: pointer;
+  padding: 11px 13px;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.update-sources > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  padding: 0 12px 10px;
+}
+
+.update-sources a {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--blue-dem);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.update-sources p {
+  padding: 0 12px 12px;
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.archive-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  padding: 10px 12px;
+  border: 1px dashed var(--line);
+  border-radius: 9px;
+  background: var(--tint);
+}
+
+.archive-divider span {
+  flex: 0 0 auto;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--navy);
+  color: var(--on-navy);
+  font-size: 8px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+}
+
+.archive-divider strong {
+  color: var(--muted);
+  font-size: 10.5px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .update-status-pill { background: rgba(15, 23, 42, 0.7); color: #93C5FD; }
+  .state-tile.result-tile.other { background: #334155; color: #94A3B8; }
+  .update-caveat strong { color: #FBBF24; }
+}
+
+@media (max-width: 520px) {
+  .update-head-card { flex-direction: column; }
+  .update-status-pill { align-self: flex-start; }
+  .result-chambers-grid { grid-template-columns: 1fr; }
+  .flip-summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .result-state-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .power-shift-diagram { grid-template-columns: 1fr; }
+  .power-hinge { grid-template-columns: auto 1fr auto; }
+  .power-hinge-line { width: 100%; min-width: 90px; }
+  .impact-update-grid { grid-template-columns: 1fr; }
+  .scenario-strip { grid-template-columns: 1fr; }
+  .update-sources > div { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
    連邦議会 勢力図（上院・下院の議員数と過半数ライン）
    ========================================================================== */
 .congress-seats-section {

@@ -1241,20 +1241,234 @@
     const cp = D.current_politics;
     const mt = cp.midterm_2026;
     const charts = cp.voter_charts;
+    const update = cp.election_update;
+    const resultByState = new Map((update?.state_results || []).map(item => [item.code, item]));
+
+    const renderResultBar = (chamber) => {
+      const demWidth = chamber.dem / chamber.total * 100;
+      const gopWidth = chamber.gop / chamber.total * 100;
+      const pendingWidth = chamber.pending / chamber.total * 100;
+      const majorityPos = chamber.majority / chamber.total * 100;
+      return `
+        <div class="result-bar-shell">
+          <div class="result-majority-tag" style="left: ${majorityPos}%">過半数 ${chamber.majority}</div>
+          <div class="result-majority-line" style="left: ${majorityPos}%"></div>
+          <div class="result-bar" aria-label="${chamber.name} 民主${chamber.dem} 共和${chamber.gop} 未判定${chamber.pending}">
+            <div class="result-bar-dem" style="width: ${demWidth}%"><span>${chamber.dem}</span></div>
+            <div class="result-bar-gop" style="width: ${gopWidth}%"><span>${chamber.gop}</span></div>
+            ${chamber.pending ? `<div class="result-bar-pending" style="width: ${pendingWidth}%"><span>${chamber.pending}</span></div>` : ''}
+          </div>
+        </div>
+      `;
+    };
 
     let html = `
       <div class="hero-card">
         <div class="hero-badge">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          2026年11月3日 決戦
+          ${update ? `UPDATE · ${update.as_of}` : '2026年11月3日 決戦'}
         </div>
         <h1 class="hero-title">${cp.title}</h1>
         <p class="hero-desc">${cp.lead}</p>
       </div>
 
+      ${update ? `
+        <!-- 2026年中間選挙リサーチ：結果アップデート -->
+        <section class="election-update-section" id="current-election-update">
+          <div class="update-head-card">
+            <div class="update-head-copy">
+              <span class="section-eyebrow">${update.eyebrow}</span>
+              <h2>${update.headline}</h2>
+              <p>${update.summary}</p>
+            </div>
+            <div class="update-status-pill">
+              <span class="update-status-dot"></span>
+              <span>議会支配は判定済み</span>
+            </div>
+          </div>
+
+          <div class="update-caveat">
+            <strong>数値の状態：</strong>${update.status_note}
+          </div>
+
+          <div class="result-chambers-grid">
+            ${update.chambers.map(chamber => `
+              <article class="result-chamber-card ${chamber.id}">
+                <div class="result-chamber-head">
+                  <div>
+                    <span class="result-chamber-kicker">${chamber.name.toUpperCase()} · 2027–</span>
+                    <h3>${chamber.name}</h3>
+                  </div>
+                  <span class="result-control-badge">民主党支配</span>
+                </div>
+                <div class="result-counts">
+                  <div class="result-count dem"><span>民主</span><strong>${chamber.dem}</strong><small>選挙前 ${chamber.previous_dem}</small></div>
+                  <div class="result-count-center"><span>多数派</span><strong>${chamber.majority}</strong></div>
+                  <div class="result-count gop"><span>共和</span><strong>${chamber.gop}</strong><small>選挙前 ${chamber.previous_gop}</small></div>
+                </div>
+                ${renderResultBar(chamber)}
+                <div class="result-chamber-note">
+                  <strong>${chamber.status}</strong>
+                  <span>${chamber.note}</span>
+                  <small>集計時点：${chamber.source_time}</small>
+                </div>
+              </article>
+            `).join('')}
+          </div>
+
+          <div class="flip-summary-grid">
+            ${update.flip_summary.map(item => `
+              <div class="flip-stat-card">
+                <strong>${item.value}</strong>
+                <span>${item.label}</span>
+                <small>${item.detail}</small>
+              </div>
+            `).join('')}
+          </div>
+
+          <div class="update-subsection">
+            <div class="section-head">
+              <span class="section-eyebrow">RESULT GEOGRAPHY</span>
+              <h2 class="section-title">注目州の結果――赤い地盤まで届いた民主党の波</h2>
+              <p class="section-lead">既存の全米カートグラム上に、上院（S）・知事（G）の注目結果を重ねた。青の濃色は民主党への転換、淡色は民主党の防衛、紫は未判定。</p>
+            </div>
+
+            <div class="result-map-card">
+              <div class="result-map-legend">
+                <span><i class="result-legend-swatch gain"></i>民主転換</span>
+                <span><i class="result-legend-swatch hold"></i>民主維持</span>
+                <span><i class="result-legend-swatch mixed"></i>維持＋転換</span>
+                <span><i class="result-legend-swatch pending"></i>未判定</span>
+                <span class="result-race-key">S＝上院 / G＝知事</span>
+              </div>
+              <div class="state-grid-scroll-wrap">
+                <div class="state-grid result-state-grid">
+                  ${cp.state_map.tile_grid.map(st => {
+                    const result = resultByState.get(st.code);
+                    const resultClass = result ? result.kind : 'other';
+                    const title = result ? `${st.name}：${result.title}｜${result.winner}｜${result.margin}` : `${st.name}：今回の注目結果カード対象外`;
+                    return `
+                      <div class="state-tile result-tile ${resultClass}"
+                        style="grid-row: ${st.r + 1}; grid-column: ${st.c + 1};"
+                        title="${title}">
+                        <span class="state-tile-code">${st.code}</span>
+                        ${result ? `<span class="result-race-mark">${result.race}</span>` : ''}
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+              <div class="result-state-cards">
+                ${update.state_results.map(item => `
+                  <article class="result-state-card ${item.kind}">
+                    <div class="result-state-card-head"><strong>${item.code}</strong><span>${item.race}</span></div>
+                    <small>${item.title}</small>
+                    <b>${item.winner}</b>
+                    <em>${item.margin}</em>
+                  </article>
+                `).join('')}
+              </div>
+              <p class="visual-footnote">速報得票差は認証済み最終得票ではない。上院・下院・知事選は候補者と制度が異なるため、上院差を州全体の恒久的党派性へそのまま転写しない。</p>
+            </div>
+          </div>
+
+          <div class="update-subsection">
+            <div class="section-head">
+              <span class="section-eyebrow">WHY THE GOP LOST</span>
+              <h2 class="section-title">共和党敗北の因果連鎖</h2>
+              <p class="section-lead">単一原因ではない。通常の中間選挙反動を土台に、家計負担が政権責任へ接続し、医療・戦争・投票熱・候補者が損失を拡大した。</p>
+            </div>
+            <div class="cause-chain">
+              ${update.cause_chain.map((cause, index) => `
+                <article class="cause-node ${cause.weight}">
+                  <div class="cause-step">${cause.step}</div>
+                  <div class="cause-copy">
+                    <div class="cause-title-row"><h3>${cause.title}</h3><strong>${cause.metric}</strong></div>
+                    <p>${cause.detail}</p>
+                  </div>
+                  ${index < update.cause_chain.length - 1 ? '<span class="cause-arrow">→</span>' : ''}
+                </article>
+              `).join('')}
+            </div>
+            <div class="hypothesis-grid">
+              ${update.hypothesis_checks.map(item => `
+                <div class="hypothesis-item ${item.tone}">
+                  <span>${item.label}</span><strong>${item.status}</strong>
+                </div>
+              `).join('')}
+            </div>
+            <p class="visual-footnote">争点の重視率は重複するため足し算できず、各要因が何議席を失わせたかという因果寄与率でもない。</p>
+          </div>
+
+          <div class="update-subsection">
+            <div class="section-head">
+              <span class="section-eyebrow">DIVIDED GOVERNMENT</span>
+              <h2 class="section-title">2027年から何が変わるか――拒否権と議会権限の綱引き</h2>
+              <p class="section-lead">新議会の任期は${update.power_shift.starts}。選挙日に即座に委員長や歳出権限が交代したわけではない。</p>
+            </div>
+            <div class="power-shift-diagram">
+              <article class="power-side president">
+                <span class="power-side-label">EXECUTIVE</span>
+                <h3>トランプ大統領</h3>
+                <ul>${update.power_shift.president.map(item => `<li>${item}</li>`).join('')}</ul>
+              </article>
+              <div class="power-hinge">
+                <span>交渉・膠着</span>
+                <div class="power-hinge-line"><i></i></div>
+                <strong>分割政府</strong>
+              </div>
+              <article class="power-side congress">
+                <span class="power-side-label">LEGISLATURE</span>
+                <h3>民主党議会</h3>
+                <ul>${update.power_shift.congress.map(item => `<li>${item}</li>`).join('')}</ul>
+              </article>
+            </div>
+            <div class="power-rule-box">${update.power_shift.hinge}</div>
+          </div>
+
+          <div class="update-subsection">
+            <div class="section-head">
+              <span class="section-eyebrow">ECONOMY & JAPAN</span>
+              <h2 class="section-title">経済・日本への影響――『自動的に変わる』ものは少ない</h2>
+              <p class="section-lead">議会支配の変化は重要だが、金利・為替・関税・戦争はそれぞれ別の決定経路を持つ。</p>
+            </div>
+            <div class="impact-update-grid">
+              ${update.impact_cards.map(item => `
+                <article class="impact-update-card">
+                  <div class="impact-icon">${item.icon}</div>
+                  <div><span>${item.tag}</span><h3>${item.title}</h3><p>${item.detail}</p></div>
+                </article>
+              `).join('')}
+            </div>
+            <div class="scenario-strip">
+              ${update.scenarios.map(item => `
+                <article>
+                  <span>${item.position}</span>
+                  <h3>${item.name}</h3>
+                  <p>${item.detail}</p>
+                </article>
+              `).join('')}
+            </div>
+          </div>
+
+          <details class="update-sources">
+            <summary>主要出典と数値の読み方</summary>
+            <div>
+              ${update.sources.map(source => `<a href="${source.url}" target="_blank" rel="noopener noreferrer">${source.label}<span>↗</span></a>`).join('')}
+            </div>
+            <p>未確認：最終認証議席、全州の署名済みcanvass、全国の転向／棄権寄与分解、政策別の議席因果効果、全HTS品目の11月12日時点実効税率。</p>
+          </details>
+        </section>
+
+        <div class="archive-divider">
+          <span>BEFORE THE VOTE</span>
+          <strong>以下は選挙前の構図と基礎データ</strong>
+        </div>
+      ` : ''}
+
       <!-- 2026年中間選挙前：米連邦議会 勢力図（上院・下院の議員数と過半数ライン） -->
       ${cp.congress_seats ? `
-        <section class="congress-seats-section">
+        <section class="congress-seats-section" id="current-congress-seats">
           <div class="section-head" style="margin-bottom: 12px;">
             <span class="section-eyebrow">Balance of Power</span>
             <h2 class="section-title" style="font-size: 19px;">${cp.congress_seats.title}</h2>
@@ -1364,7 +1578,7 @@
 
       <!-- 全米州別・支持基盤マップ（レッドステート vs ブルーステート vs スイングステート） -->
       ${cp.state_map ? `
-        <section class="state-map-section">
+        <section class="state-map-section" id="state-map-section">
           <div class="section-head" style="margin-bottom: 12px;">
             <span class="section-eyebrow">Electoral Geography</span>
             <h2 class="section-title" style="font-size: 19px;">${cp.state_map.title}</h2>
@@ -3113,6 +3327,36 @@
     // ③ 2026年中間選挙・連邦議会勢力
     if (D.current_politics) {
       const cp = D.current_politics;
+      if (cp.election_update) {
+        const eu = cp.election_update;
+        idx.push({
+          id: 'current-election-results',
+          title: eu.headline,
+          category: '2026中間選挙・結果更新',
+          tab: 'current',
+          target_id: 'current-election-update',
+          text: `${eu.headline} ${eu.summary} 民主党 上下両院 奪還 上院55 共和44 未判定1 下院255 共和168 未判定12 分割政府`,
+          snippet: eu.summary
+        });
+        idx.push({
+          id: 'current-election-causes',
+          title: '共和党はなぜ負けたのか',
+          category: '2026中間選挙・敗因',
+          tab: 'current',
+          target_id: 'current-election-update',
+          text: eu.cause_chain.map(item => `${item.title} ${item.metric} ${item.detail}`).join(' '),
+          snippet: '生活費と政策責任を中核に、医療費・戦争・支持移動・投票熱・候補者要因が損失を増幅。'
+        });
+        idx.push({
+          id: 'current-election-japan',
+          title: '中間選挙後の経済・日本への影響',
+          category: '2026中間選挙・日本',
+          tab: 'current',
+          target_id: 'current-election-update',
+          text: eu.impact_cards.map(item => `${item.title} ${item.tag} ${item.detail}`).join(' '),
+          snippet: '関税・対米投資・金利為替・半導体AI・原油海運への波及を、制度別に整理。'
+        });
+      }
       if (cp.congress_seats) {
         idx.push({
           id: 'current-congress-seats',
