@@ -1383,7 +1383,7 @@
                 <article class="cause-node ${cause.weight}">
                   <div class="cause-step">${cause.step}</div>
                   <div class="cause-copy">
-                    <div class="cause-title-row"><h3>${cause.title}</h3><strong>${cause.metric}</strong></div>
+                    <div class="cause-title-row"><h3>${cause.title}</h3></div>
                     <p>${cause.detail}</p>
                   </div>
                   ${index < update.cause_chain.length - 1 ? '<span class="cause-arrow">→</span>' : ''}
