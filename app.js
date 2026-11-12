@@ -1245,18 +1245,32 @@
     const resultByState = new Map((update?.state_results || []).map(item => [item.code, item]));
 
     const renderResultBar = (chamber) => {
-      const demWidth = chamber.dem / chamber.total * 100;
-      const gopWidth = chamber.gop / chamber.total * 100;
-      const pendingWidth = chamber.pending / chamber.total * 100;
-      const majorityPos = chamber.majority / chamber.total * 100;
+      const demWidth = (chamber.dem / chamber.total) * 100;
+      const gopWidth = (chamber.gop / chamber.total) * 100;
+      const pendingWidth = (chamber.pending / chamber.total) * 100;
+      const majorityPos = (chamber.majority / chamber.total) * 100;
+      const demNet = chamber.dem - chamber.previous_dem;
+      const gopNet = chamber.gop - chamber.previous_gop;
+      const majorityDiff = chamber.dem - chamber.majority;
+
       return `
         <div class="result-bar-shell">
           <div class="result-majority-tag" style="left: ${majorityPos}%">過半数 ${chamber.majority}</div>
           <div class="result-majority-line" style="left: ${majorityPos}%"></div>
           <div class="result-bar" aria-label="${chamber.name} 民主${chamber.dem} 共和${chamber.gop} 未判定${chamber.pending}">
-            <div class="result-bar-dem" style="width: ${demWidth}%"><span>${chamber.dem}</span></div>
-            <div class="result-bar-gop" style="width: ${gopWidth}%"><span>${chamber.gop}</span></div>
+            <div class="result-bar-dem" style="width: ${demWidth}%">
+              <span class="bar-num">${chamber.dem}</span>
+              ${majorityDiff >= 0 ? `<span class="bar-win-badge">過半数奪還</span>` : ''}
+            </div>
+            <div class="result-bar-gop" style="width: ${gopWidth}%">
+              <span class="bar-num">${chamber.gop}</span>
+            </div>
             ${chamber.pending ? `<div class="result-bar-pending" style="width: ${pendingWidth}%"><span>${chamber.pending}</span></div>` : ''}
+          </div>
+          <div class="result-bar-legend-row">
+            <span class="bar-leg dem"><i class="leg-dot dem"></i>民主 ${chamber.dem} (${demNet >= 0 ? '+' + demNet : demNet})</span>
+            <span class="bar-leg center">過半数ライン ${chamber.majority}</span>
+            <span class="bar-leg gop"><i class="leg-dot gop"></i>共和 ${chamber.gop} (${gopNet >= 0 ? '+' + gopNet : gopNet})</span>
           </div>
         </div>
       `;
@@ -1339,36 +1353,102 @@
                 <span><i class="result-legend-swatch hold"></i>民主維持</span>
                 <span><i class="result-legend-swatch mixed"></i>維持＋転換</span>
                 <span><i class="result-legend-swatch pending"></i>未判定</span>
+                <span class="result-legend-swatch-key">🔥 日経注目激戦州</span>
                 <span class="result-race-key">S＝上院 / G＝知事</span>
               </div>
+
+              <!-- 全米カートグラム（タイルクリックで該当州カードへジャンプ＆発光） -->
               <div class="state-grid-scroll-wrap">
                 <div class="state-grid result-state-grid">
                   ${cp.state_map.tile_grid.map(st => {
                     const result = resultByState.get(st.code);
                     const resultClass = result ? result.kind : 'other';
-                    const title = result ? `${st.name}：${result.title}｜${result.winner}｜${result.margin}` : `${st.name}：今回の注目結果カード対象外`;
+                    const isKey = result && result.is_nikkei_key ? 'is-key-state' : '';
+                    const title = result ? `${result.name}（${st.code}）：${result.title}｜${result.history_badge || ''}｜${result.winner}｜${result.margin}` : `${st.name}：今回の注目結果カード対象外`;
                     return `
-                      <div class="state-tile result-tile ${resultClass}"
+                      <div class="state-tile result-tile ${resultClass} ${isKey}"
                         style="grid-row: ${st.r + 1}; grid-column: ${st.c + 1};"
+                        data-state="${st.code}"
                         title="${title}">
                         <span class="state-tile-code">${st.code}</span>
                         ${result ? `<span class="result-race-mark">${result.race}</span>` : ''}
+                        ${result && result.is_nikkei_key ? `<span class="result-key-flame">🔥</span>` : ''}
                       </div>
                     `;
                   }).join('')}
                 </div>
               </div>
-              <div class="result-state-cards">
+              <p class="map-hint-text">👆 州タイルをクリックすると、該当州の候補者対決・日経注目解説カードへ自動ジャンプします。</p>
+
+              <!-- 州絞り込みフィルター（日経速報スタイル） -->
+              <div class="result-filter-bar">
+                <button type="button" class="result-filter-pill active" data-filter="all">すべて (15州)</button>
+                <button type="button" class="result-filter-pill key" data-filter="nikkei">🔥 日経注目州 (7州)</button>
+                <button type="button" class="result-filter-pill" data-filter="senate_flip">🏛️ 上院転換州 (8州)</button>
+                <button type="button" class="result-filter-pill" data-filter="gov">👑 注目知事選 (5州)</button>
+                <button type="button" class="result-filter-pill" data-filter="pending">⚖️ 未判定 (1州)</button>
+              </div>
+
+              <!-- リッチな注目州カードリスト（候補者対決＋日経解説） -->
+              <div class="result-state-cards" id="result-state-cards-container">
                 ${update.state_results.map(item => `
-                  <article class="result-state-card ${item.kind}">
-                    <div class="result-state-card-head"><strong>${item.code}</strong><span>${item.race}</span></div>
-                    <small>${item.title}</small>
-                    <b>${item.winner}</b>
-                    <em>${item.margin}</em>
+                  <article class="result-state-card ${item.kind} ${item.is_nikkei_key ? 'is-key-card' : ''}"
+                    id="state-card-${item.code}"
+                    data-state="${item.code}"
+                    data-category="${item.category}"
+                    data-nikkei="${item.is_nikkei_key ? '1' : '0'}">
+                    
+                    <div class="result-state-card-head">
+                      <div class="result-state-title-group">
+                        <div class="result-state-header-row">
+                          <strong class="result-state-code">${item.code}</strong>
+                          <span class="result-state-name">${item.name}</span>
+                          <span class="result-race-badge ${item.race}">${item.race === 'S' ? '上院' : item.race === 'G' ? '知事' : '上院/知事'}</span>
+                        </div>
+                        <h4 class="result-state-headline">${item.title}</h4>
+                      </div>
+                      ${item.history_badge ? `
+                        <div class="result-history-badge ${item.is_nikkei_key ? 'key' : ''}">
+                          ${item.is_nikkei_key ? '🔥 ' : ''}${item.history_badge}
+                        </div>
+                      ` : ''}
+                    </div>
+
+                    <!-- 候補者対決マッチアップ（日経スタイル） -->
+                    <div class="result-matchup-container">
+                      <div class="matchup-side dem">
+                        <span class="matchup-party dem">民主党（Dem）</span>
+                        <strong class="matchup-name">${item.candidates?.dem?.nameJa || item.winner}</strong>
+                        ${item.candidates?.dem?.nameEn ? `<small class="matchup-name-en">${item.candidates.dem.nameEn}</small>` : ''}
+                      </div>
+
+                      <div class="matchup-vs-col">
+                        <span class="matchup-vs-text">VS</span>
+                        <span class="matchup-margin-tag">${item.margin}</span>
+                      </div>
+
+                      <div class="matchup-side gop">
+                        <span class="matchup-party gop">共和党（GOP）</span>
+                        <strong class="matchup-name">${item.candidates?.gop?.nameJa || '共和党候補'}</strong>
+                        ${item.candidates?.gop?.nameEn ? `<small class="matchup-name-en">${item.candidates.gop.nameEn}</small>` : ''}
+                      </div>
+                    </div>
+
+                    <!-- 日経・注目背景解説（なぜこの州が歴史的なのか） -->
+                    ${item.explainer ? `
+                    <div class="result-explainer-box">
+                      <div class="explainer-header">
+                        <span class="explainer-icon">💡</span>
+                        <strong>なぜ歴史的なのか（日経解説・背景分析）</strong>
+                      </div>
+                      <p class="explainer-p">${item.explainer}</p>
+                    </div>
+                    ` : ''}
                   </article>
                 `).join('')}
               </div>
-              <p class="visual-footnote">速報得票差は認証済み最終得票ではない。上院・下院・知事選は候補者と制度が異なるため、上院差を州全体の恒久的党派性へそのまま転写しない。</p>
+
+              <p class="visual-footnote">速報得票差は認証済み最終得票ではない。上院・下院・知事選は候補者と制度が異なるため、上院差を州全体の恒久的党派性へそのまま転写しない。出典：日本経済新聞（vdata.nikkei.com）およびAP通信速報集計。</p>
             </div>
           </div>
 
@@ -1918,6 +1998,55 @@
               <div class="detail-text" style="white-space: pre-line;">${pz.impact}</div>
             </div>
           `);
+        }
+      });
+    });
+
+    // 注目州フィルターの切り替え処理（日経速報スタイル）
+    const filterPills = app.querySelectorAll('.result-filter-pill');
+    const stateCards = app.querySelectorAll('.result-state-card');
+    filterPills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        filterPills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        const filter = pill.getAttribute('data-filter');
+        stateCards.forEach(card => {
+          let visible = false;
+          if (filter === 'all') {
+            visible = true;
+          } else if (filter === 'nikkei') {
+            visible = card.getAttribute('data-nikkei') === '1';
+          } else if (filter === 'senate_flip') {
+            visible = card.getAttribute('data-category') === 'senate_flip';
+          } else if (filter === 'gov') {
+            const cat = card.getAttribute('data-category');
+            visible = cat === 'gov_hold' || cat === 'gov_flip';
+          } else if (filter === 'pending') {
+            visible = card.getAttribute('data-category') === 'pending';
+          }
+          card.style.display = visible ? 'flex' : 'none';
+        });
+      });
+    });
+
+    // カートグラムタイルのクリックで該当州カードへスクロール
+    const resultTiles = app.querySelectorAll('.state-tile.result-tile');
+    resultTiles.forEach(tile => {
+      tile.addEventListener('click', () => {
+        const stateCode = tile.getAttribute('data-state');
+        if (!stateCode) return;
+        const targetCard = app.querySelector(`#state-card-${stateCode}`);
+        if (targetCard) {
+          // すべて表示にリセット
+          const allPill = app.querySelector('.result-filter-pill[data-filter="all"]');
+          if (allPill && !allPill.classList.contains('active')) {
+            allPill.click();
+          }
+          targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          targetCard.classList.add('active-highlight');
+          setTimeout(() => {
+            targetCard.classList.remove('active-highlight');
+          }, 2400);
         }
       });
     });

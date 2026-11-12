@@ -70,123 +70,378 @@ window.SITE_DATA = {
       "state_results": [
         {
           "code": "TX",
+          "name": "テキサス州",
           "kind": "gain",
           "race": "S",
-          "title": "上院・民主転換",
+          "title": "上院・民主転換（38年ぶり）",
           "winner": "James Talarico（D）",
-          "margin": "D+12.1pt"
+          "margin": "D+12.1pt",
+          "is_nikkei_key": true,
+          "category": "senate_flip",
+          "history_badge": "38年ぶりの民主奪還",
+          "candidates": {
+            "gop": {
+              "nameJa": "ケン・パクストン",
+              "nameEn": "Ken Paxton",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "ジェームズ・タラリコ",
+              "nameEn": "James Talarico",
+              "party": "Dem"
+            }
+          },
+          "explainer": "民主党が1988年以来、38年ぶりに上院でテキサスを制した。演説で聖書の言葉を使い、保守層にも浸透するタラリコ氏は民主党の次世代を担う新星として全米が注目。キリスト教ナショナリズムに対し、進歩的キリスト教徒としての信仰を武器に戦った。"
         },
         {
-          "code": "NC",
+          "code": "ME",
+          "name": "メーン州",
           "kind": "gain",
           "race": "S",
-          "title": "上院・民主転換",
-          "winner": "Roy Cooper（D）",
-          "margin": "D+19.8pt"
-        },
-        {
-          "code": "SC",
-          "kind": "gain",
-          "race": "S",
-          "title": "上院・民主転換",
-          "winner": "Annie Andrews（D）",
-          "margin": "D+4.5pt"
+          "title": "上院・民主転換（30年ぶり）",
+          "winner": "Troy Jackson（D）",
+          "margin": "D+6.2pt",
+          "is_nikkei_key": true,
+          "category": "senate_flip",
+          "history_badge": "30年守った共和穏健派敗北",
+          "candidates": {
+            "gop": {
+              "nameJa": "スーザン・コリンズ",
+              "nameEn": "Susan Collins",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "トロイ・ジャクソン",
+              "nameEn": "Troy Jackson",
+              "party": "Dem"
+            }
+          },
+          "explainer": "およそ30年議席を守ってきた共和党のコリンズ氏を急進左派に近いジャクソン氏が破った。コリンズ氏はトランプ氏と距離がある共和穏健派の代表格であり、中道寄り現職でも全国的な政権逆風を防ぎきれなかった象徴。"
         },
         {
           "code": "OH",
+          "name": "オハイオ州",
           "kind": "gain",
           "race": "S",
           "title": "上院特別選・民主転換",
           "winner": "Sherrod Brown（D）",
-          "margin": "D+4.8pt"
-        },
-        {
-          "code": "KS",
-          "kind": "gain",
-          "race": "S",
-          "title": "上院・民主転換",
-          "winner": "Adam Hamilton（D）",
-          "margin": "D+5.0pt"
+          "margin": "D+4.8pt",
+          "is_nikkei_key": true,
+          "category": "senate_flip",
+          "history_badge": "バンス副大統領の地元",
+          "candidates": {
+            "gop": {
+              "nameJa": "ジョン・ヒューステッド",
+              "nameEn": "Jon Husted",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "シェロッド・ブラウン",
+              "nameEn": "Sherrod Brown",
+              "party": "Dem"
+            }
+          },
+          "explainer": "2028年大統領選への出馬をうかがうバンス副大統領のお膝元で民主党が勝利した。ブラウン氏は元上院議員で18年間務めた重鎮。ラストベルト（鉄鋼・製造業地帯）の労働者層を取り戻した。"
         },
         {
           "code": "IA",
+          "name": "アイオワ州",
           "kind": "gain",
           "race": "S",
-          "title": "上院・民主転換",
+          "title": "上院・民主転換（42年ぶり）",
           "winner": "Josh Turek（D）",
-          "margin": "D+4.2pt"
+          "margin": "D+4.2pt",
+          "is_nikkei_key": true,
+          "category": "senate_flip",
+          "history_badge": "福音派の牙城で42年ぶり転落",
+          "candidates": {
+            "gop": {
+              "nameJa": "アシュリー・ヒンソン",
+              "nameEn": "Ashley Hinson",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "ジョシュ・トゥレック",
+              "nameEn": "Josh Turek",
+              "party": "Dem"
+            }
+          },
+          "explainer": "トランプ氏を支えてきたキリスト教プロテスタントの「福音派」が人口の多くを占める代表州。上院選で共和党が現有議席を失うのは42年ぶり。農村部・宗教保守の地盤に生じた亀裂を示す。"
         },
         {
-          "code": "ME",
+          "code": "KS",
+          "name": "カンザス州",
           "kind": "gain",
           "race": "S",
-          "title": "上院・民主転換",
-          "winner": "Troy Jackson（D）",
-          "margin": "D+6.2pt"
-        },
-        {
-          "code": "MS",
-          "kind": "gain",
-          "race": "S",
-          "title": "上院・民主転換",
-          "winner": "Scott Colom（D）",
-          "margin": "D+0.5pt"
+          "title": "上院・民主転換（94年ぶり）",
+          "winner": "Adam Hamilton（D）",
+          "margin": "D+5.0pt",
+          "is_nikkei_key": true,
+          "category": "senate_flip",
+          "history_badge": "94年ぶりの歴史的奇跡",
+          "candidates": {
+            "gop": {
+              "nameJa": "ロジャー・マーシャル",
+              "nameEn": "Roger Marshall",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "アダム・ハミルトン",
+              "nameEn": "Adam Hamilton",
+              "party": "Dem"
+            }
+          },
+          "explainer": "共和の牙城で民主が1932年以来、94年ぶりに上院議席を獲得した。民主新人のハミルトン氏は全米最大規模のメソジスト教会の牧師で、知名度の高さを武器に保守的な信徒票も引き寄せた。"
         },
         {
           "code": "MI",
+          "name": "ミシガン州",
           "kind": "hold",
           "race": "S/G",
           "title": "上院・知事を民主維持",
           "winner": "El-Sayed / Benson（D）",
-          "margin": "S D+7.0 / G D+10.9"
+          "margin": "S D+7.0 / G D+10.9",
+          "is_nikkei_key": true,
+          "category": "senate_hold",
+          "history_badge": "急進左派「民主社会主義」",
+          "candidates": {
+            "gop": {
+              "nameJa": "マイク・ロジャース",
+              "nameEn": "Mike Rogers",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "アブドゥル・エルサイド",
+              "nameEn": "Abdul El-Sayed",
+              "party": "Dem"
+            }
+          },
+          "explainer": "議席を獲得したエルサイド氏は急進左派の代表格。「民主社会主義」と呼ばれる勢力が民主党内で力を伸長する象徴的な動きに。自動車産業地帯と若者層の動員が奏功。知事選でも民主が防衛。"
+        },
+        {
+          "code": "AK",
+          "name": "アラスカ州",
+          "kind": "pending",
+          "race": "S",
+          "title": "上院・未判定（民主先行）",
+          "winner": "Peltola（D）先行",
+          "margin": "第一選択票 D+1.8pt",
+          "is_nikkei_key": true,
+          "category": "pending",
+          "history_badge": "共和15連勝牙城で先行",
+          "candidates": {
+            "gop": {
+              "nameJa": "ダン・サリバン",
+              "nameEn": "Dan Sullivan",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "メアリー・ペルトラ",
+              "nameEn": "Mary Peltola",
+              "party": "Dem"
+            }
+          },
+          "explainer": "共和党が大統領選で15回連続で勝利してきた牙城。ペルトラ氏は「アラスカ・ファースト」を掲げ、共和党の公約と似かようエネルギー開発を訴えて超党派の支持を獲得し先行。"
+        },
+        {
+          "code": "NC",
+          "name": "ノースカロライナ州",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Roy Cooper（D）",
+          "margin": "D+19.8pt",
+          "is_nikkei_key": false,
+          "category": "senate_flip",
+          "history_badge": "元人気知事の圧勝",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "ロイ・クーパー",
+              "nameEn": "Roy Cooper",
+              "party": "Dem"
+            }
+          },
+          "explainer": "元知事として高い支持率を誇るロイ・クーパー氏が上院を奪還。急成長するリサーチ・トライアングル周辺の教育層・都市部での大幅リードが勝利を決定づけた。"
+        },
+        {
+          "code": "SC",
+          "name": "サウスカロライナ州",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換（42年ぶり）",
+          "winner": "Annie Andrews（D）",
+          "margin": "D+4.5pt",
+          "is_nikkei_key": false,
+          "category": "senate_flip",
+          "history_badge": "福音派南部で42年ぶり",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "アニー・アンドリュース",
+              "nameEn": "Annie Andrews",
+              "party": "Dem"
+            }
+          },
+          "explainer": "ディープサウスの象徴であるサウスカロライナで小児科医のアンドリュース氏が42年ぶりの民主上院フリップ。医療アクセスの危機が保守層の主婦・穏健層を動かした。"
+        },
+        {
+          "code": "MS",
+          "name": "ミシシッピ州",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換（僅差）",
+          "winner": "Scott Colom（D）",
+          "margin": "D+0.5pt",
+          "is_nikkei_key": false,
+          "category": "senate_flip",
+          "history_badge": "0.5pt差の大激戦",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "スコット・コラム",
+              "nameEn": "Scott Colom",
+              "party": "Dem"
+            }
+          },
+          "explainer": "0.5pt差という全米最僅差での奇跡的な転換。検事出身のコラム氏が黒人有権者の記録的動員と若者票を結集させ、歴史的番狂わせを演じた。"
         },
         {
           "code": "GA",
+          "name": "ジョージア州",
           "kind": "mixed",
           "race": "S/G",
           "title": "上院維持・知事転換",
           "winner": "Ossoff / Bottoms（D）",
-          "margin": "S D+18.0 / G D+8.6"
-        },
-        {
-          "code": "AK",
-          "kind": "pending",
-          "race": "S",
-          "title": "上院・未判定",
-          "winner": "Peltola（D）先行",
-          "margin": "第一選択票 D+1.8pt"
-        },
-        {
-          "code": "AZ",
-          "kind": "hold",
-          "race": "G",
-          "title": "知事・民主維持",
-          "winner": "Katie Hobbs（D）",
-          "margin": "D+13.1pt"
+          "margin": "S D+18.0 / G D+8.6",
+          "is_nikkei_key": false,
+          "category": "gov_flip",
+          "history_badge": "知事奪還・南部再編",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "オソフ（上） / ボトムズ（知事）",
+              "nameEn": "Ossoff / Bottoms",
+              "party": "Dem"
+            }
+          },
+          "explainer": "上院で現職オソフ氏が大差（D+18.0pt）で維持し、知事選でもボトムズ元アトランタ市長が勝利（D+8.6pt）。スイングステートから民主優位への定着が進む。"
         },
         {
           "code": "PA",
+          "name": "ペンシルベニア州",
           "kind": "hold",
           "race": "G",
           "title": "知事・民主維持",
           "winner": "Josh Shapiro（D）",
-          "margin": "D+22.1pt"
+          "margin": "D+22.1pt",
+          "is_nikkei_key": false,
+          "category": "gov_hold",
+          "history_badge": "シャピロ知事22pt差圧勝",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "ジョシュ・シャピロ",
+              "nameEn": "Josh Shapiro",
+              "party": "Dem"
+            }
+          },
+          "explainer": "シャピロ知事がD+22.1ptという圧倒的な大差で再選。中道・実務派としてのインフラ再建実績が保守系無党派層まで巻き込んだ。"
+        },
+        {
+          "code": "AZ",
+          "name": "アリゾナ州",
+          "kind": "hold",
+          "race": "G",
+          "title": "知事・民主維持",
+          "winner": "Katie Hobbs（D）",
+          "margin": "D+13.1pt",
+          "is_nikkei_key": false,
+          "category": "gov_hold",
+          "history_badge": "ホブス知事再選",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "ケイティ・ホブス",
+              "nameEn": "Katie Hobbs",
+              "party": "Dem"
+            }
+          },
+          "explainer": "激戦州アリゾナでホブス知事がD+13.1pt差で強固に再選。共和党候補の極右路線に対し、穏健保守・無党派層が民主現職を選好。"
         },
         {
           "code": "WI",
+          "name": "ウィスコンシン州",
           "kind": "hold",
           "race": "G",
           "title": "知事・民主維持",
           "winner": "David Crowley（D）",
-          "margin": "D+8.0pt"
+          "margin": "D+8.0pt",
+          "is_nikkei_key": false,
+          "category": "gov_hold",
+          "history_badge": "知事防衛・ブルーウォール",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "デビッド・クローリー",
+              "nameEn": "David Crowley",
+              "party": "Dem"
+            }
+          },
+          "explainer": "ミルウォーキー郡長のクローリー氏がD+8.0pt差で知事選勝利。労働者連合と郊外票の固め直しに成功。"
         },
         {
           "code": "NV",
+          "name": "ネバダ州",
           "kind": "gain",
           "race": "G",
           "title": "知事・民主転換",
           "winner": "Aaron Ford（D）",
-          "margin": "D+7.6pt"
+          "margin": "D+7.6pt",
+          "is_nikkei_key": false,
+          "category": "gov_flip",
+          "history_badge": "知事奪還",
+          "candidates": {
+            "gop": {
+              "nameJa": "共和党候補",
+              "nameEn": "GOP Candidate",
+              "party": "GOP"
+            },
+            "dem": {
+              "nameJa": "アーロン・フォード",
+              "nameEn": "Aaron Ford",
+              "party": "Dem"
+            }
+          },
+          "explainer": "司法長官アーロン・フォード氏がD+7.6pt差で知事奪還。カジノ労組（Culinary Union）の強力な地上戦が物価高の不満を投票に結びつけた。"
         }
       ],
       "cause_chain": [
@@ -306,6 +561,10 @@ window.SITE_DATA = {
         }
       ],
       "sources": [
+        {
+          "label": "日経新聞 アメリカ中間選挙2026 開票速報・注目州",
+          "url": "https://vdata.nikkei.com/us-election/2026/live/"
+        },
         {
           "label": "AP 議会支配の判定時系列",
           "url": "https://www.ap.org/the-definitive-source/behind-the-news/calling-control-of-congress-in-the-2026-midterm-elections/"
