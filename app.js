@@ -1451,6 +1451,133 @@
             </div>
           </div>
 
+          ${update.ai_policy ? `
+          <div class="update-subsection" id="current-ai-policy">
+            <div class="section-head">
+              <span class="section-eyebrow">${update.ai_policy.eyebrow}</span>
+              <h2 class="section-title">${update.ai_policy.title}</h2>
+              <p class="section-lead">${update.ai_policy.lead}</p>
+            </div>
+
+            <!-- 政策基調の構造転換カード -->
+            <div class="ai-shift-card">
+              <div class="ai-shift-grid">
+                <div class="ai-shift-side from">
+                  <span class="ai-shift-badge">${update.ai_policy.core_shift.from_label}</span>
+                  <h4>${update.ai_policy.core_shift.from_title}</h4>
+                  <p>${update.ai_policy.core_shift.from_desc}</p>
+                </div>
+                <div class="ai-shift-arrow">
+                  <span>転換</span>
+                  <i>➔</i>
+                </div>
+                <div class="ai-shift-side to">
+                  <span class="ai-shift-badge active">${update.ai_policy.core_shift.to_label}</span>
+                  <h4>${update.ai_policy.core_shift.to_title}</h4>
+                  <p>${update.ai_policy.core_shift.to_desc}</p>
+                </div>
+              </div>
+              <div class="ai-shift-reality">
+                <strong>制度的リアリズム：</strong>${update.ai_policy.core_shift.reality}
+              </div>
+            </div>
+
+            <!-- 変化の優先順位：6つの政策カード -->
+            <div class="ai-priorities-grid">
+              ${update.ai_policy.priorities.map(p => `
+                <article class="ai-priority-card">
+                  <div class="ai-priority-head">
+                    <span class="ai-priority-rank">${p.rank}</span>
+                    <div class="ai-priority-icon">${p.icon}</div>
+                    <div class="ai-priority-meta">
+                      <span class="ai-priority-tag">${p.tag}</span>
+                      <span class="ai-priority-badge">${p.badge}</span>
+                    </div>
+                  </div>
+                  <h3>${p.title}</h3>
+                  <p>${p.detail}</p>
+                </article>
+              `).join('')}
+            </div>
+
+            <!-- 実務・スタートアップ影響の2カラムブロック -->
+            <div class="ai-impact-split">
+              <!-- 左: AI制作・コンテンツ実務の変化テーブル -->
+              <div class="ai-impact-block">
+                <div class="ai-block-head">
+                  <span class="ai-block-tag">CREATIVE & WORKFLOW</span>
+                  <h3>AI制作・コンテンツ実務への変化</h3>
+                  <p>「誰のデータを使い、誰が何を創作し、事故時に誰が責任を負うか」を証明できる制作工程が不可欠に。</p>
+                </div>
+                <div class="ai-table-wrap">
+                  <table class="ai-workflow-table">
+                    <thead>
+                      <tr><th>対象</th><th>実務上の変化・求められる対応</th></tr>
+                    </thead>
+                    <tbody>
+                      ${update.ai_policy.production_table.map(row => `
+                        <tr>
+                          <td><strong>${row.item}</strong></td>
+                          <td>${row.practice}</td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- 右: 事業領域・スタートアップへの影響リスト -->
+              <div class="ai-impact-block">
+                <div class="ai-block-head">
+                  <span class="ai-block-tag">STARTUPS & SECTORS</span>
+                  <h3>事業領域別の影響と勝ち筋</h3>
+                  <p>固定費負担が増大する一方、用途特化・監査・省電力・権利処理に新たな商機。</p>
+                </div>
+                <div class="ai-sectors-list">
+                  ${update.ai_policy.startup_sectors.map(sec => `
+                    <div class="ai-sector-item ${sec.tone}">
+                      <div class="ai-sector-top">
+                        <strong>${sec.sector}</strong>
+                        <span class="ai-sector-badge ${sec.tone}">${sec.label}</span>
+                      </div>
+                      <p>${sec.impact}</p>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- VC視点・実装価値の数式カード -->
+            <div class="ai-formula-card">
+              <div class="ai-formula-head">
+                <span class="section-eyebrow">VENTURE CAPITAL PERSPECTIVE</span>
+                <h3>${update.ai_policy.formula.title}</h3>
+              </div>
+              <div class="ai-formula-box">
+                <div class="formula-math">
+                  <span class="math-target">${update.ai_policy.formula.target}</span>
+                  <span class="math-eq">＝</span>
+                  <div class="math-fraction">
+                    <span class="math-num">${update.ai_policy.formula.numerator}</span>
+                    <span class="math-bar"></span>
+                    <span class="math-den">${update.ai_policy.formula.denominator}</span>
+                  </div>
+                </div>
+              </div>
+              <p class="ai-formula-caption">${update.ai_policy.formula.caption}</p>
+            </div>
+
+            <!-- 本質的な問い コールアウト -->
+            <div class="ai-question-card">
+              <div class="ai-question-icon">💡</div>
+              <div class="ai-question-copy">
+                <span>THE FUNDAMENTAL QUESTION</span>
+                <blockquote>${update.ai_policy.essential_question}</blockquote>
+              </div>
+            </div>
+          </div>
+          ` : ''}
+
           <details class="update-sources">
             <summary>主要出典と数値の読み方</summary>
             <div>
@@ -3347,6 +3474,18 @@
           text: eu.cause_chain.map(item => `${item.title} ${item.metric} ${item.detail}`).join(' '),
           snippet: '生活費と政策責任を中核に、医療費・戦争・支持移動・投票熱・候補者要因が損失を増幅。'
         });
+        if (eu.ai_policy) {
+          const ai = eu.ai_policy;
+          idx.push({
+            id: 'current-election-ai-policy',
+            title: ai.title,
+            category: '2026中間選挙・AI政策',
+            tab: 'current',
+            target_id: 'current-ai-policy',
+            text: `${ai.title} ${ai.lead} ${ai.priorities.map(p => `${p.title} ${p.detail}`).join(' ')} ${ai.production_table.map(t => `${t.item} ${t.practice}`).join(' ')} ${ai.startup_sectors.map(s => `${s.sector} ${s.impact}`).join(' ')} データセンター フロンティアAI 監査 損害責任 著作権 来歴証明 デジタルレプリカ 州規制 対中半導体 実装価値`,
+            snippet: ai.lead
+          });
+        }
         idx.push({
           id: 'current-election-japan',
           title: '中間選挙後の経済・日本への影響',

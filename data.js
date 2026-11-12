@@ -46,66 +46,457 @@ window.SITE_DATA = {
         }
       ],
       "flip_summary": [
-        {"value": "8", "label": "上院・共和→民主", "detail": "TX / NC / SC / OH / KS / IA / ME / MS"},
-        {"value": "44", "label": "下院・共和→民主", "detail": "共和党から民主党への転換議席"},
-        {"value": "2", "label": "下院・民主→共和", "detail": "下院の民主党から共和党への転換議席"},
-        {"value": "+42", "label": "下院の民主純増", "detail": "転換議席の差。総議席速報とは時点が異なる"}
+        {
+          "value": "8",
+          "label": "上院・共和→民主",
+          "detail": "TX / NC / SC / OH / KS / IA / ME / MS"
+        },
+        {
+          "value": "44",
+          "label": "下院・共和→民主",
+          "detail": "共和党から民主党への転換議席"
+        },
+        {
+          "value": "2",
+          "label": "下院・民主→共和",
+          "detail": "下院の民主党から共和党への転換議席"
+        },
+        {
+          "value": "+42",
+          "label": "下院の民主純増",
+          "detail": "転換議席の差。総議席速報とは時点が異なる"
+        }
       ],
       "state_results": [
-        {"code": "TX", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "James Talarico（D）", "margin": "D+12.1pt"},
-        {"code": "NC", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Roy Cooper（D）", "margin": "D+19.8pt"},
-        {"code": "SC", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Annie Andrews（D）", "margin": "D+4.5pt"},
-        {"code": "OH", "kind": "gain", "race": "S", "title": "上院特別選・民主転換", "winner": "Sherrod Brown（D）", "margin": "D+4.8pt"},
-        {"code": "KS", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Adam Hamilton（D）", "margin": "D+5.0pt"},
-        {"code": "IA", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Josh Turek（D）", "margin": "D+4.2pt"},
-        {"code": "ME", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Troy Jackson（D）", "margin": "D+6.2pt"},
-        {"code": "MS", "kind": "gain", "race": "S", "title": "上院・民主転換", "winner": "Scott Colom（D）", "margin": "D+0.5pt"},
-        {"code": "MI", "kind": "hold", "race": "S/G", "title": "上院・知事を民主維持", "winner": "El-Sayed / Benson（D）", "margin": "S D+7.0 / G D+10.9"},
-        {"code": "GA", "kind": "mixed", "race": "S/G", "title": "上院維持・知事転換", "winner": "Ossoff / Bottoms（D）", "margin": "S D+18.0 / G D+8.6"},
-        {"code": "AK", "kind": "pending", "race": "S", "title": "上院・未判定", "winner": "Peltola（D）先行", "margin": "第一選択票 D+1.8pt"},
-        {"code": "AZ", "kind": "hold", "race": "G", "title": "知事・民主維持", "winner": "Katie Hobbs（D）", "margin": "D+13.1pt"},
-        {"code": "PA", "kind": "hold", "race": "G", "title": "知事・民主維持", "winner": "Josh Shapiro（D）", "margin": "D+22.1pt"},
-        {"code": "WI", "kind": "hold", "race": "G", "title": "知事・民主維持", "winner": "David Crowley（D）", "margin": "D+8.0pt"},
-        {"code": "NV", "kind": "gain", "race": "G", "title": "知事・民主転換", "winner": "Aaron Ford（D）", "margin": "D+7.6pt"}
+        {
+          "code": "TX",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "James Talarico（D）",
+          "margin": "D+12.1pt"
+        },
+        {
+          "code": "NC",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Roy Cooper（D）",
+          "margin": "D+19.8pt"
+        },
+        {
+          "code": "SC",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Annie Andrews（D）",
+          "margin": "D+4.5pt"
+        },
+        {
+          "code": "OH",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院特別選・民主転換",
+          "winner": "Sherrod Brown（D）",
+          "margin": "D+4.8pt"
+        },
+        {
+          "code": "KS",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Adam Hamilton（D）",
+          "margin": "D+5.0pt"
+        },
+        {
+          "code": "IA",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Josh Turek（D）",
+          "margin": "D+4.2pt"
+        },
+        {
+          "code": "ME",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Troy Jackson（D）",
+          "margin": "D+6.2pt"
+        },
+        {
+          "code": "MS",
+          "kind": "gain",
+          "race": "S",
+          "title": "上院・民主転換",
+          "winner": "Scott Colom（D）",
+          "margin": "D+0.5pt"
+        },
+        {
+          "code": "MI",
+          "kind": "hold",
+          "race": "S/G",
+          "title": "上院・知事を民主維持",
+          "winner": "El-Sayed / Benson（D）",
+          "margin": "S D+7.0 / G D+10.9"
+        },
+        {
+          "code": "GA",
+          "kind": "mixed",
+          "race": "S/G",
+          "title": "上院維持・知事転換",
+          "winner": "Ossoff / Bottoms（D）",
+          "margin": "S D+18.0 / G D+8.6"
+        },
+        {
+          "code": "AK",
+          "kind": "pending",
+          "race": "S",
+          "title": "上院・未判定",
+          "winner": "Peltola（D）先行",
+          "margin": "第一選択票 D+1.8pt"
+        },
+        {
+          "code": "AZ",
+          "kind": "hold",
+          "race": "G",
+          "title": "知事・民主維持",
+          "winner": "Katie Hobbs（D）",
+          "margin": "D+13.1pt"
+        },
+        {
+          "code": "PA",
+          "kind": "hold",
+          "race": "G",
+          "title": "知事・民主維持",
+          "winner": "Josh Shapiro（D）",
+          "margin": "D+22.1pt"
+        },
+        {
+          "code": "WI",
+          "kind": "hold",
+          "race": "G",
+          "title": "知事・民主維持",
+          "winner": "David Crowley（D）",
+          "margin": "D+8.0pt"
+        },
+        {
+          "code": "NV",
+          "kind": "gain",
+          "race": "G",
+          "title": "知事・民主転換",
+          "winner": "Aaron Ford（D）",
+          "margin": "D+7.6pt"
+        }
       ],
       "cause_chain": [
-        {"step": "1", "title": "生活費が中心争点", "metric": "約9割", "detail": "AP Voter Pollで生活費を『決定的／主要要因』と回答。該当層の約6割が民主党下院候補へ。", "weight": "core"},
-        {"step": "2", "title": "政策責任が政権へ帰属", "metric": "約2/3", "detail": "生活費重視層の約3分の2が、トランプ政策はインフレを悪化させたと回答。", "weight": "core"},
-        {"step": "3", "title": "医療費・戦争が増幅", "metric": "約6割", "detail": "医療費への強い懸念、イラン開戦への否定評価が不満を上乗せ。争点は同じ有権者内で重複する。", "weight": "amplifier"},
-        {"step": "4", "title": "支持連合と投票熱の反転", "metric": "58対48", "detail": "選挙前の熱意は民主系58%、共和系48%。若者・ヒスパニック・穏健派などが民主側へ移動。", "weight": "amplifier"},
-        {"step": "5", "title": "候補者要因が赤州で増幅", "metric": "8州", "detail": "TXやSCなどで本選適性の弱さが全国的逆風を拡大。ただし候補者だけでは全国波を説明できない。", "weight": "local"}
+        {
+          "step": "1",
+          "title": "生活費が中心争点",
+          "metric": "約9割",
+          "detail": "AP Voter Pollで生活費を『決定的／主要要因』と回答。該当層の約6割が民主党下院候補へ。",
+          "weight": "core"
+        },
+        {
+          "step": "2",
+          "title": "政策責任が政権へ帰属",
+          "metric": "約2/3",
+          "detail": "生活費重視層の約3分の2が、トランプ政策はインフレを悪化させたと回答。",
+          "weight": "core"
+        },
+        {
+          "step": "3",
+          "title": "医療費・戦争が増幅",
+          "metric": "約6割",
+          "detail": "医療費への強い懸念、イラン開戦への否定評価が不満を上乗せ。争点は同じ有権者内で重複する。",
+          "weight": "amplifier"
+        },
+        {
+          "step": "4",
+          "title": "支持連合と投票熱の反転",
+          "metric": "58対48",
+          "detail": "選挙前の熱意は民主系58%、共和系48%。若者・ヒスパニック・穏健派などが民主側へ移動。",
+          "weight": "amplifier"
+        },
+        {
+          "step": "5",
+          "title": "候補者要因が赤州で増幅",
+          "metric": "8州",
+          "detail": "TXやSCなどで本選適性の弱さが全国的逆風を拡大。ただし候補者だけでは全国波を説明できない。",
+          "weight": "local"
+        }
       ],
       "hypothesis_checks": [
-        {"label": "生活費への不満が中心", "status": "強く支持", "tone": "supported"},
-        {"label": "通常の中間選挙反動だけ", "status": "部分支持", "tone": "partial"},
-        {"label": "戦争だけで負けた", "status": "修正必要", "tone": "partial"},
-        {"label": "民主党政策への全面信任", "status": "未判定", "tone": "uncertain"}
+        {
+          "label": "生活費への不満が中心",
+          "status": "強く支持",
+          "tone": "supported"
+        },
+        {
+          "label": "通常の中間選挙反動だけ",
+          "status": "部分支持",
+          "tone": "partial"
+        },
+        {
+          "label": "戦争だけで負けた",
+          "status": "修正必要",
+          "tone": "partial"
+        },
+        {
+          "label": "民主党政策への全面信任",
+          "status": "未判定",
+          "tone": "uncertain"
+        }
       ],
       "power_shift": {
         "starts": "2027年1月3日正午",
-        "president": ["民主党法案への拒否権", "既存法に基づく行政・外交・通商権限", "法案を単独成立させる権限はない"],
-        "congress": ["新規共和党法案を阻止", "予算・歳出・人事承認を制約", "公聴会・文書要求・召喚状で監督強化"],
+        "president": [
+          "民主党法案への拒否権",
+          "既存法に基づく行政・外交・通商権限",
+          "法案を単独成立させる権限はない"
+        ],
+        "congress": [
+          "新規共和党法案を阻止",
+          "予算・歳出・人事承認を制約",
+          "公聴会・文書要求・召喚状で監督強化"
+        ],
         "hinge": "通常法案の上院討論終結は原則60票。拒否権覆しは上下両院各3分の2。主戦場は立法だけでなく、予算・人事・監督・裁判・行政実施へ移る。"
       },
       "impact_cards": [
-        {"icon": "¥", "title": "金利・為替", "detail": "選挙後の持続的な米金利低下や円高定着は未確認。FRB、日銀、原油、インフレを同時に見る。", "tag": "単線予測を避ける"},
-        {"icon": "関", "title": "関税・対米投資", "detail": "民主党勝利で関税は自動撤廃されない。232条・301条など法源別、品目別に確認する。5,500億ドル枠も自動失効しない。", "tag": "法源と実行額を分離"},
-        {"icon": "AI", "title": "半導体・AI・重要鉱物", "detail": "対中経済安保は継続しやすい。装置・材料・電力・供給網に機会がある一方、輸出管理と米国内調達条件が制約。", "tag": "継続性が高い"},
-        {"icon": "油", "title": "原油・海運", "detail": "敗北は自動停戦を意味しない。中東情勢は原油、航行、保険料を通じ日本の輸入コストと実質所得へ波及。", "tag": "下振れリスク"}
+        {
+          "icon": "¥",
+          "title": "金利・為替",
+          "detail": "選挙後の持続的な米金利低下や円高定着は未確認。FRB、日銀、原油、インフレを同時に見る。",
+          "tag": "単線予測を避ける"
+        },
+        {
+          "icon": "関",
+          "title": "関税・対米投資",
+          "detail": "民主党勝利で関税は自動撤廃されない。232条・301条など法源別、品目別に確認する。5,500億ドル枠も自動失効しない。",
+          "tag": "法源と実行額を分離"
+        },
+        {
+          "icon": "AI",
+          "title": "半導体・AI・重要鉱物",
+          "detail": "対中経済安保は継続しやすい。装置・材料・電力・供給網に機会がある一方、輸出管理と米国内調達条件が制約。",
+          "tag": "継続性が高い"
+        },
+        {
+          "icon": "油",
+          "title": "原油・海運",
+          "detail": "敗北は自動停戦を意味しない。中東情勢は原油、航行、保険料を通じ日本の輸入コストと実質所得へ波及。",
+          "tag": "下振れリスク"
+        }
       ],
       "scenarios": [
-        {"name": "制約付き分割政府", "position": "基準", "detail": "立法停滞、歳出交渉、監督強化。既存行政権限は継続。"},
-        {"name": "生活費を軸とする妥協", "position": "上振れ", "detail": "医療・住宅・エネルギー、限定的通商緩和で合意。"},
-        {"name": "制度対立と行政強硬化", "position": "下振れ", "detail": "政府閉鎖、召喚状訴訟、人事封鎖、外交・通商のエスカレーション。"}
+        {
+          "name": "制約付き分割政府",
+          "position": "基準",
+          "detail": "立法停滞、歳出交渉、監督強化。既存行政権限は継続。"
+        },
+        {
+          "name": "生活費を軸とする妥協",
+          "position": "上振れ",
+          "detail": "医療・住宅・エネルギー、限定的通商緩和で合意。"
+        },
+        {
+          "name": "制度対立と行政強硬化",
+          "position": "下振れ",
+          "detail": "政府閉鎖、召喚状訴訟、人事封鎖、外交・通商のエスカレーション。"
+        }
       ],
       "sources": [
-        {"label": "AP 議会支配の判定時系列", "url": "https://www.ap.org/the-definitive-source/behind-the-news/calling-control-of-congress-in-the-2026-midterm-elections/"},
-        {"label": "Roll Call 主要結果", "url": "https://rollcall.com/2026/11/03/key-midterm-election-results/"},
-        {"label": "AP 生活費と投票", "url": "https://apnews.com/article/economy-trump-midterms-inflation-ai-wealthy-healthcare-f8dbe8800549340c8a75d956302c126b"},
-        {"label": "KFF 医療費と投票", "url": "https://www.kff.org/public-opinion/health-care-in-the-2026-midterm-election/"},
-        {"label": "Pew トランプ支持率", "url": "https://www.pewresearch.org/politics/2026/10/08/trumps-approval-rating-drops-as-fewer-americans-are-confident-in-his-handling-of-the-economy-other-issues/"},
-        {"label": "米上院 投票手続", "url": "https://www.senate.gov/about/powers-procedures/voting.htm"}
-      ]
+        {
+          "label": "AP 議会支配の判定時系列",
+          "url": "https://www.ap.org/the-definitive-source/behind-the-news/calling-control-of-congress-in-the-2026-midterm-elections/"
+        },
+        {
+          "label": "Roll Call 主要結果",
+          "url": "https://rollcall.com/2026/11/03/key-midterm-election-results/"
+        },
+        {
+          "label": "AP 生活費と投票",
+          "url": "https://apnews.com/article/economy-trump-midterms-inflation-ai-wealthy-healthcare-f8dbe8800549340c8a75d956302c126b"
+        },
+        {
+          "label": "KFF 医療費と投票",
+          "url": "https://www.kff.org/public-opinion/health-care-in-the-2026-midterm-election/"
+        },
+        {
+          "label": "Pew トランプ支持率",
+          "url": "https://www.pewresearch.org/politics/2026/10/08/trumps-approval-rating-drops-as-fewer-americans-are-confident-in-his-handling-of-the-economy-other-issues/"
+        },
+        {
+          "label": "米上院 投票手続",
+          "url": "https://www.senate.gov/about/powers-procedures/voting.htm"
+        },
+        {
+          "label": "Cantwell フロンティアAI統治枠組み (上院商業委)",
+          "url": "https://www.commerce.senate.gov/press/dem/release/cantwell-outlines-comprehensive-governance-framework-for-safe-and-secure-frontier-ai/"
+        },
+        {
+          "label": "AI LEAD Act 超党派損害責任法案 (上院司法委)",
+          "url": "https://www.judiciary.senate.gov/press/dem/releases/durbin-hawley-introduce-bill-allowing-victims-to-sue-ai-companies"
+        },
+        {
+          "label": "米著作権局 生成AIと著作権報告書",
+          "url": "https://www.copyright.gov/ai/"
+        },
+        {
+          "label": "米著作権局 デジタルレプリカ報告書",
+          "url": "https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-1-Digital-Replicas-Report.pdf"
+        },
+        {
+          "label": "白宮 America's AI Action Plan",
+          "url": "https://www.whitehouse.gov/wp-content/uploads/2025/07/Americas-AI-Action-Plan.pdf"
+        },
+        {
+          "label": "下院エネ商委 データセンター問題声明",
+          "url": "https://democrats-energycommerce.house.gov/media/press-releases/pallone-calls-national-ai-data-center-moratorium-energy-subcommittee-markup"
+        }
+      ],
+      "ai_policy": {
+        "eyebrow": "AI & TECH POLICY",
+        "title": "AI・テック政策への影響――『加速一辺倒』から『外部費用の内部化』へ",
+        "lead": "民主党の上下両院奪還により、米国のAI政策は開発速度・インフラ建設の最大化一辺倒から、電力・安全・責任・労働・権利のコストをAI企業に負担させる方向へ動く。ただしトランプ大統領の拒否権が残るため、全面規制より監督・歳出条件・人事・州法・超党派限定法案が先行する。",
+        "core_shift": {
+          "from_label": "BEFORE（共和党・トランプ政権）",
+          "from_title": "開発競争の加速・インフラ建設一辺倒",
+          "from_desc": "AI Action Planに基づく許認可迅速化、州AI規制の連邦助成による抑制、連邦安全規制の緩和・市場主導。",
+          "to_label": "AFTER（2027年〜 民主党両院支配）",
+          "to_title": "電力・安全・責任・権利の外部費用内部化",
+          "to_desc": "電力料金・系統負荷のAI企業負担、フロンティアAI監査、製造物責任・損害賠償、権利処理・来歴透明性、州法無効化の阻止。",
+          "reality": "通常法案の上院討論終結（原則60票）や拒否権覆し（両院各3分の2）は困難。全面法案よりも『公聴会・調査召喚』『連邦予算・税制・調達条件』『州別規制の防衛』『被害救済特化の超党派限定法案』が実効的な主戦場となる。"
+        },
+        "priorities": [
+          {
+            "rank": "01",
+            "icon": "⚡",
+            "title": "データセンターと電力料金",
+            "badge": "最も早く衝突",
+            "tag": "系統・住民負担",
+            "detail": "データセンターによる電力料金高騰、送電網負荷、水・排出への住民反発を背景に、民主党議員から全国モラトリアム案や監督強化が浮上。トランプ政権の迅速化方針（AI Action Plan）と直接衝突。"
+          },
+          {
+            "rank": "02",
+            "icon": "🛡️",
+            "title": "フロンティアAIの安全性・監査",
+            "badge": "議題設定の転換",
+            "tag": "NIST・調達条件",
+            "detail": "キャントウェル上院議員枠組み（2026年10月）に見られるNIST基準、独立監査、重大インシデント報告、内部告発者保護が浮上。全面法案は拒否権の壁があるが、連邦政府調達や助成要件として先行導入。"
+          },
+          {
+            "rank": "03",
+            "icon": "⚖️",
+            "title": "AI損害への製造物責任・訴訟",
+            "badge": "超党派合意の余地",
+            "tag": "AI LEAD Act",
+            "detail": "ダービン（民）×ホーリー（共）共同提出の『AI LEAD Act』構想。AIを『製品』と位置付け製造物責任を問える連邦根拠を作る。子ども保護、自傷・医療被害、性的ディープフェイク、無断複製など具体的被害で合意可能性。"
+          },
+          {
+            "rank": "04",
+            "icon": "🏛️",
+            "title": "州AI法の存続と50州対応",
+            "badge": "パッチワーク化",
+            "tag": "州法無効化の後退",
+            "detail": "トランプ政権の『規制州への連邦助成制限』に対し、民主党議会が予算・監督で抵抗。全米統一の緩いルールより、カリフォルニア（モデル安全）、コロラド（重要判断）、テキサス/バージニア（電力）、ニューヨーク（雇用）など州別規制が併存。"
+          },
+          {
+            "rank": "05",
+            "icon": "©️",
+            "title": "著作権・来歴証明・コンテンツ制作",
+            "badge": "来歴・同意が実務化",
+            "tag": "デジタルレプリカ",
+            "detail": "米著作権局報告書は一律強制ライセンスは見送り市場発展を勧告しつつ、デジタルレプリカ（声・顔）の連邦権利創設を提言。学習データの出所、オプトアウト記録、人間創作関与の証明、監査証跡が実務上の必須要件に。"
+          },
+          {
+            "rank": "06",
+            "icon": "🌐",
+            "title": "対中半導体規制と経済安保",
+            "badge": "超党派で継続・厳格化",
+            "tag": "継続性が極めて高い",
+            "detail": "トランプ政権のAI Action Plan（先端GPU位置把握・迂回防止・装置規制）と民主党の敵対国技術流出防止方針が合致。対中規制は超党派で継続し、日本企業にも同盟国協調と国内投資が要請される。"
+          }
+        ],
+        "production_table": [
+          {
+            "item": "学習データ",
+            "practice": "出所、利用許諾、オプトアウト対応の記録・透明性管理"
+          },
+          {
+            "item": "声・顔（レプリカ）",
+            "practice": "本人同意、利用範囲、期間、二次利用の契約厳格化"
+          },
+          {
+            "item": "AI生成物",
+            "practice": "人間がどこに創作的判断を加えたかの記録（著作権性の担保）"
+          },
+          {
+            "item": "納品物",
+            "practice": "AI使用の明示、来歴情報（C2PA等）、権利保証条項の付与"
+          },
+          {
+            "item": "広告・映像",
+            "practice": "ディープフェイク、なりすましリスクへの事前確認工程の設置"
+          },
+          {
+            "item": "制作会社・代理店",
+            "practice": "使用モデル、入力素材、権利処理の監査証跡（トレーサビリティ）"
+          }
+        ],
+        "startup_sectors": [
+          {
+            "sector": "基盤モデル",
+            "tone": "wind",
+            "label": "負担増",
+            "impact": "監査・安全評価・訴訟準備・電力負担が増加。速度より証拠化された安全管理が重視。"
+          },
+          {
+            "sector": "AIアプリ",
+            "tone": "wind",
+            "label": "要件化",
+            "impact": "子ども保護、説明責任、重要判断における人間による再審（Human-in-the-loop）が仕様に。"
+          },
+          {
+            "sector": "AI制作・制作支援",
+            "tone": "chance",
+            "label": "差別化",
+            "impact": "権利処理、同意管理、来歴証明、オプトアウト対応が強力な付加価値・選定基準に。"
+          },
+          {
+            "sector": "データセンター",
+            "tone": "risk",
+            "label": "リスク増",
+            "impact": "許認可審査、系統接続費、立地リスクが上昇し、案件完了までの期間と資本コストが増大。"
+          },
+          {
+            "sector": "規制対応・監査SaaS",
+            "tone": "chance",
+            "label": "強い追い風",
+            "impact": "モデル評価、レッドチーミング、透かし、権利・来歴管理ツールへの需要が急伸。"
+          },
+          {
+            "sector": "電力最適化・冷却技術",
+            "tone": "chance",
+            "label": "強い追い風",
+            "impact": "省電力半導体、液冷・分散電源、系統接続最適化技術へのVC投資・提携が加速。"
+          },
+          {
+            "sector": "用途特化・小規模モデル",
+            "tone": "chance",
+            "label": "相対価値上昇",
+            "impact": "安価で説明可能、オンプレミス運用、権利処理済みデータの特化型モデルの競争力向上。"
+          }
+        ],
+        "formula": {
+          "title": "VC・投資の視点：モデル規模競争から『実装価値』への転換",
+          "target": "実装価値",
+          "numerator": "業務効果",
+          "denominator": "計算費用 ＋ 電力費用 ＋ 権利処理 ＋ 規制・事故コスト",
+          "caption": "モデルのパラメーター数の多さから、電力・権利・安全の外部費用を引き受けながら社会実装できる力へ競争軸がシフトする。巨大モデル企業が規制対応費や電力費を抱え込む中、小規模スタートアップには「用途特化・省電力・オンプレミス・監査可能性・権利処理済みデータ」という別の勝ち筋が生まれる。"
+        },
+        "essential_question": "AI企業の競争力を「最大のモデルを最速で作る力」で測るのか、それとも「電力・権利・安全の外部費用を引き受けながら社会実装できる力」で測るべきでしょうか。"
+      }
     },
     "midterm_2026": {
       "date": "2026年11月3日",
